@@ -48,6 +48,9 @@ def generate_badge_by_username():
 
         response = make_response(badge)
         response.mimetype = "image/svg+xml"
+        response.cache_control.public = True
+        response.cache_control.max_age = 300
+
         return response
 
     except Exception as e:
