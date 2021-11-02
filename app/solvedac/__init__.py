@@ -1,8 +1,7 @@
 __all__ = [
     'tier',
     'SolvedacFetcher',
-    'Card',
-    'Badge',
+    'solvedac_badge',
 ]
 
-from . import Badge, Card, tier, SolvedacFetcher, User
+from . import solvedac_badge, tier, SolvedacFetcher, User

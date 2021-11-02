@@ -8,10 +8,14 @@
 ![solvedac 2ykwang](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000)
 ```
 
-### customize
+## options
 
-### badge type
+### badge type 
 
-![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000)
+#### common
+![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000&)
+
+#### compact
+![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000&compact=1&ssvzf)
 
 ### card type
