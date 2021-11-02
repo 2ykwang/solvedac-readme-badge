@@ -1,6 +1,7 @@
 from flask import (
     jsonify,
     request,
+    make_response,
     render_template,
     g
 )
@@ -42,18 +43,20 @@ def generate_badge_by_username():
     user = User.get_user_from_dict(json_data)
 
     # badge 생성
-    card = make_badge(user)
+    badge = make_badge(user)
 
-    return card
+    response = make_response(badge)
+    response.mimetype = "image/svg+xml"
+
+    return response
 
 
 def make_badge(user: User) -> str:
-    ee = render_template("badge_small.svg",
-                         tier_icon=tier.tier_icon[ user.tier],
-                         username=user.username
-                         )
-    print(user.username)
-    return ee
+    svg = render_template("badge_small.svg",
+                          tier_icon=tier.tier_icon[user.tier],
+                          username=user.username
+                          )
+    return svg
 
 
 def generate_card_by_username():
