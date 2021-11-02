@@ -5,7 +5,7 @@
 ## how to use
 
 ```markdown
-![solvedac 2ykwang](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000)
+![solvedac](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=baekjoon_id_here)
 ```
 
 ## options
