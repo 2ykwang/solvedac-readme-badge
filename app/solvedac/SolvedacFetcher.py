@@ -14,6 +14,8 @@ class SolvedacFetcher:
 
         if response.status_code == 200:
             result = response.json()
+        else:
+            raise Exception('유저 정보를 불러올 수 없습니다.')
 
         return result
 

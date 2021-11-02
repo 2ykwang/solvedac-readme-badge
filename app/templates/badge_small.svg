@@ -1,11 +1,12 @@
-<svg width="80"
-     height="80"
-     style="background-color: #1E1E1E"
+<svg width="140"
+     height="140"
      xmlns="http://www.w3.org/2000/svg">
     <style>
         #username {
-        font: 600 9px 'Segoe UI', Ubuntu, Sans-Serif;
-        fill: #00BADF;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+        font-size: 75%;
+        fill: #0099EF;
+        font-weight: 600;
         text-align:center;
         }
         #tier_icon {
@@ -15,7 +16,7 @@
     </style>
     <g>
         <title>badge small</title>
-        <svg x="10" y="5" height="60" width="60" id="tier_icon">
+        <svg x="15%" y="9%" height="70%" width="70%" id="tier_icon">
             {% if tier_icon %}
             {{ tier_icon }}
             {% endif %}
@@ -27,7 +28,7 @@
               dominant-baseline="middle"
               text-anchor="middle"
               stroke-width="0"
-              font-size="12"
+              font-size="14"
               id="username"
               xml:space="preserve">{% if username %}{{ username }}{% endif %}</text>
     </g>

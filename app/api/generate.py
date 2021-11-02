@@ -37,18 +37,23 @@ def generate_badge_by_username():
 
     # api 호출
     fetcher = solved.SolvedacFetcher(os.getenv("API_HOST"))
-    json_data = fetcher.get_user_info(username)
 
     # user 생성
-    user = User.get_user_from_dict(json_data)
+    try:
+        json_data = fetcher.get_user_info(username)
+        user = User.get_user_from_dict(json_data)
 
-    # badge 생성
-    badge = make_badge(user)
+        # badge 생성
+        badge = make_badge(user)
 
-    response = make_response(badge)
-    response.mimetype = "image/svg+xml"
+        response = make_response(badge)
+        response.mimetype = "image/svg+xml"
+        return response
 
-    return response
+    except Exception as e:
+        print("generate_badge_by_username -", e)
+
+    return "error"
 
 
 def make_badge(user: User) -> str:
