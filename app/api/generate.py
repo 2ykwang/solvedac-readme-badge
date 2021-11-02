@@ -2,6 +2,7 @@ from flask import (
     jsonify,
     request,
     make_response,
+    Response,
     render_template,
     g
 )
@@ -29,14 +30,16 @@ def teardown_request(exception):
         print(f"It took {request_time :.5f} seconds to respond.")
 
 
-def generate_badge_by_username():
+def generate_by_username():
     username = request.args.get('user')
 
     if username is None:
         return "error"
 
+    host = os.getenv("API_HOST")
+    cache_max_age = int(os.getenv("CACHE_CONTROL"))
     # api 호출
-    fetcher = solved.SolvedacFetcher(os.getenv("API_HOST"))
+    fetcher = solved.SolvedacFetcher(host)
 
     # user 생성
     try:
@@ -46,10 +49,7 @@ def generate_badge_by_username():
         # badge 생성
         badge = make_badge(user)
 
-        response = make_response(badge)
-        response.mimetype = "image/svg+xml"
-        response.cache_control.public = True
-        response.cache_control.max_age = 300
+        response = __make_svg_response(badge, cache_max_age)
 
         return response
 
@@ -59,19 +59,16 @@ def generate_badge_by_username():
     return "error"
 
 
+def __make_svg_response(svg, max_age: int = 3600) -> Response:
+    response = make_response(svg)
+    response.mimetype = "image/svg+xml"
+    response.cache_control.public = True
+    response.cache_control.max_age = max_age
+    return response
+
+
 def make_badge(user: User) -> str:
     svg = render_template("badge_small.svg",
                           tier_icon=tier.tier_icon[user.tier],
-                          username=user.username
-                          )
+                          username=user.username)
     return svg
-
-
-def generate_card_by_username():
-    data = jsonify({
-        "success": True,
-        "result": {
-            "username": f""
-        }
-    })
-    return data
