@@ -1,6 +1,5 @@
 from urllib.parse import urljoin
 import requests
-import json
 
 
 class SolvedacFetcher:
@@ -10,23 +9,19 @@ class SolvedacFetcher:
 
     def get_user_info(self, user_name: str) -> dict:
         response = requests.get(self.__url_wrapping(f"/user/show?handle={user_name}"))
-        result = {}
 
         if response.status_code == 200:
-            result = response.json()
+            return response.json()
         else:
             raise Exception('유저 정보를 불러올 수 없습니다.')
 
-        return result
-
     def get_user_problem_stat(self, user_name: str) -> dict:
         response = requests.get(self.__url_wrapping(f"/user/problem_stats?handle={user_name}"))
-        result = {}
 
         if response.status_code == 200:
-            result = response.json()
-
-        return result
+            return response.json()
+        else:
+            raise Exception('유저 문제풀이 정보를 불러올 수 없습니다.')
 
     def __url_wrapping(self, path: str):
         if path[0] == '/':

@@ -5,12 +5,14 @@ from flask import (
     g
 )
 from ..solvedac import (
-    SolvedacFetcher as solved,
+    solvedacfetcher as solved,
     solvedac_badge,
+    get_user_from_dict,
     User,
 )
+
 from ..component import (
-    Badge
+    badge
 )
 import os
 import time
@@ -35,12 +37,12 @@ def generate_by_username():
     component_type = request.args.get('type')
     is_compact = request.args.get('compact')
 
-    error_comp = Badge
+    error_comp = badge
     if component_type is not None:
         if component_type == "card":
-            error_comp = Badge
+            error_comp = badge
         elif component_type == "badge":
-            error_comp = Badge
+            error_comp = badge
 
     if is_compact is None:
         is_compact = False
@@ -76,7 +78,7 @@ def __get_user(username: str) -> User:
     host = os.getenv("API_HOST")
     fetcher = solved.SolvedacFetcher(host)
     json_data = fetcher.get_user_info(username)
-    user = User.get_user_from_dict(json_data)
+    user = get_user_from_dict(json_data)
     return user
 
 

@@ -1,29 +1,26 @@
-from . import User
-from ..component import *
-from ..solvedac import (
-    tier
+from .user import User
+from .tier import (
+    get_tier_text,
+    get_tier_icon,
 )
+from ..component import *
 
 
 def make_badge(user: User, is_compact: bool = False) -> str:
-    badge = Badge.Badge()
+    comp = Badge()
 
-    tier_icon = tier.tier_icon[user.tier]
-    tier_text = tier.tier_text[user.tier]
+    tier_icon = get_tier_icon(user.tier)
+    tier_text = get_tier_text(user.tier)
     username = user.username
 
     res = ""
     if not is_compact:
-        badge.styles = """
+        comp.styles = """
     #username {
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
         font-size: 75%;
         font-weight: 600;
         text-align:center;
-    }
-    #tier_icon {
-        width:50px;
-        height:50px;
     }
     """
 
@@ -44,45 +41,43 @@ def make_badge(user: User, is_compact: bool = False) -> str:
         class="sub_color"
         id="username">{username}</text>
         """
-        res = badge.render(body)
+        res = comp.render(body)
     else:
-        badge.width = 150
-        badge.height = 45
-        badge.back_color = "#FFF"
+        comp.width = 150
+        comp.height = 45
+        comp.back_color = "#FFF"
 
-        badge.styles = """
+        comp.styles = """
         #username {
-            font-size: 80%;
-            font-weight: 600; 
+            font-size: 0.815em;
+            font-weight: 600;
         }
-        #tier_text { 
-            font-size: 70%;
-            font-weight: 600; 
+        #tier_text {
+            font-size: 0.72em;
+            font-weight: 600;
+            letter-spacing: 0.15em;
         }
         """
 
         body = f"""
         <title>badge compact</title>
-        <svg 
-            x="5%" 
-            y="10%" 
-            height="80%" 
-            width="25%">{tier_icon}</svg>
+        <svg width ="20%" height="80%" x="5%" y="10%">
+        {tier_icon}
+        </svg>
         <text
-            x="67%"
-            y="35%"
+            x="65%"
+            y="40%"
             dominant-baseline="middle"
             text-anchor="middle"
             id="tier_text"
             class="common_color">{tier_text}</text>
         <text
-            x="67%"
-            y="70%"
+            x="65%"
+            y="75%"
             dominant-baseline="middle"
             text-anchor="middle"
-            font-size="12"
             class="sub_color"
             id="username">{username}</text>
             """
-        res = badge.render(body)
+        res = comp.render(body)
     return res

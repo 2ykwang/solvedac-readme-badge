@@ -1,3 +1,1 @@
-__all__ = [
-    'Badge'
-]
+from .badge import Badge as Badge
