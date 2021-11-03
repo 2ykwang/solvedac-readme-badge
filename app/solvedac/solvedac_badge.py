@@ -18,10 +18,17 @@ def make_badge(user: User, is_compact: bool = False) -> str:
     if not is_compact:
         comp.styles = """
     #username {
-        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-        font-size: 75%;
+        font-size: 0.960em;
         font-weight: 600;
-        text-align:center;
+    }
+    .description { 
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        display: inline-block;
+        white-space: nowrap;
+        width: 140px;
+        height: 30px; 
     }
     """
 
@@ -32,32 +39,41 @@ def make_badge(user: User, is_compact: bool = False) -> str:
         y="9%" 
         height="70%" 
         width="70%" 
-        id="tier_icon">{tier_icon}</svg>
-    <text
-        x="50%"
-        y="90%"
-        dominant-baseline="middle"
-        text-anchor="middle"
-        font-size="14"
-        class="sub_color"
-        id="username">{username}</text>
+        id="tier_icon">{tier_icon}</svg> 
+    <svg y="115" >
+      <title>닉네임</title>
+      <foreignObject width="140" height="30">
+        <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="description sub_color">
+          {username}
+        </xhtml:span>
+      </foreignObject>
+    </svg>
         """
         res = comp.render(body)
     else:
-        comp.width = 150
+        comp.width = 170
         comp.height = 45
         comp.use_back_color = True
         comp.back_color = "#fff"
 
         comp.styles = """
-        #username {
-            font-size: 0.815em;
-            font-weight: 600;
-        }
         #tier_text {
             font-size: 0.72em;
             font-weight: 600;
             letter-spacing: 0.15em;
+        }
+        #username {
+            font-size: 0.735em;
+            font-weight: 600;
+        }
+        .description { 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            display: inline-block;
+            width: 120px;
+            height: 30px;
+            white-space: nowrap;
         }
         """
 
@@ -66,20 +82,23 @@ def make_badge(user: User, is_compact: bool = False) -> str:
         <svg width ="20%" height="80%" x="5%" y="10%">
         {tier_icon}
         </svg>
-        <text
-            x="65%"
-            y="40%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            id="tier_text"
-            class="common_color">{tier_text}</text>
-        <text
-            x="65%"
-            y="75%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            class="sub_color"
-            id="username">{username}</text>
+        <svg x="50" y="7">
+          <title>랭크</title>
+          <foreignObject width="120" height="30">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="tier_text" class="description common_color">
+              {tier_text}
+            </xhtml:span>
+          </foreignObject>
+        </svg>
+    
+        <svg x="50" y="22" >
+          <title>닉네임</title>
+          <foreignObject width="120" height="30">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="description sub_color">
+              {username}
+            </xhtml:span>
+          </foreignObject>
+        </svg>
             """
         res = comp.render(body)
     return res

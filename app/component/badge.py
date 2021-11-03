@@ -11,19 +11,19 @@ class Badge:
 
     def render(self, body: str) -> str:
         # <rect x="0" y="0" width="100%" height="100%" style=" stroke:pink; stroke-width:1; fill-opacity:0; stroke-opacity:1;" />
-        back_ground = f"<rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" rx=\"2\" ry=\"2\" fill=\"{self.back_color}\" />"
+        back_ground = f"<rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.back_color}\" />"
         return f"""
 <svg
     width="{self.width}"
     height="{self.height}"
     xmlns="http://www.w3.org/2000/svg"> 
     <style>
-        .common_color{{ fill: {self.common_color}; }}
-        .sub_color{{ fill: {self.sub_color}; }}
-        text{{ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";}}
-        {self.styles}
+    .common_color{{ fill: {self.common_color}; color: {self.common_color}; }}
+    .sub_color{{ fill: {self.sub_color}; color: {self.sub_color};}}
+    text{{ font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";}}
+    {self.styles}
     </style>
-    {back_ground if self.use_back_color else None}
+    {back_ground if self.use_back_color else ""}
     <g>
         {body}
     </g>
