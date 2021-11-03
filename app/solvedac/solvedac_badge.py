@@ -12,7 +12,8 @@ def make_badge(user: User, is_compact: bool = False) -> str:
     tier_icon = get_tier_icon(user.tier)
     tier_text = get_tier_text(user.tier)
     username = user.username
-
+    comp.use_back_color = False
+    comp.back_color = "transparent"
     res = ""
     if not is_compact:
         comp.styles = """
@@ -45,7 +46,8 @@ def make_badge(user: User, is_compact: bool = False) -> str:
     else:
         comp.width = 150
         comp.height = 45
-        comp.back_color = "#FFF"
+        comp.use_back_color = True
+        comp.back_color = "#fff"
 
         comp.styles = """
         #username {
