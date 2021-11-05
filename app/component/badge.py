@@ -8,10 +8,14 @@ class Badge:
         self.sub_color = "#0099EF"
         self.use_back_color = False
         self.back_color = "#FFF"
+        self.use_border = True
+        self.border_color = "#EEE"
 
     def render(self, body: str) -> str:
         # <rect x="0" y="0" width="100%" height="100%" style=" stroke:pink; stroke-width:1; fill-opacity:0; stroke-opacity:1;" />
-        back_ground = f"<rect x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.back_color}\" />"
+        border = f"stroke=\"{self.border_color}\" stroke-opacity=\"1\" stroke-width=\"0.5\""
+
+        back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.back_color}\" {border if self.use_border else ''}/>"
         return f"""
 <svg
     width="{self.width}"
