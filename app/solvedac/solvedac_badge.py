@@ -6,7 +6,7 @@ from .tier import (
 from ..component import *
 
 
-def make_badge(user: User, is_compact: bool = False) -> str:
+def make_badge(user: User, is_compact: bool = False, _test=False) -> str:
     comp = Badge()
 
     tier_icon = get_tier_icon(user.tier)
@@ -55,7 +55,11 @@ def make_badge(user: User, is_compact: bool = False) -> str:
         comp.height = 45
         comp.use_back_color = True
         comp.back_color = "#fff"
-
+        if _test:
+            comp.common_color = "#E3BE79"
+            comp.sub_color = "#D96D74"
+            comp.use_back_color = True
+            comp.back_color = "#282C34"
         comp.styles = """
         #tier_text {
             font-size: 0.72em;

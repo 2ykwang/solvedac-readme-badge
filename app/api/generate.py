@@ -34,15 +34,15 @@ def teardown_request(exception):
 
 def generate_by_username():
     username = request.args.get('user')
-    component_type = request.args.get('type')
-    is_compact = request.args.get('compact')
+    component_type = request.args.get('type', 'badge')
+    is_compact = request.args.get('compact', 0)
+    theme = request.args.get('theme', "")
 
     error_comp = badge
-    if component_type is not None:
-        if component_type == "card":
-            error_comp = badge
-        elif component_type == "badge":
-            error_comp = badge
+    if component_type == "card":
+        error_comp = badge
+    elif component_type == "badge":
+        error_comp = badge
 
     if is_compact is None:
         is_compact = False
@@ -60,7 +60,7 @@ def generate_by_username():
         # badge 생성
         comp = solvedac_badge.make_badge(user, is_compact)
         if component_type == "badge":
-            comp = solvedac_badge.make_badge(user, is_compact)
+            comp = solvedac_badge.make_badge(user, is_compact, True if theme == 'onedark' else False)
         elif component_type == "card":
             comp = solvedac_badge.make_badge(user, is_compact)
 
