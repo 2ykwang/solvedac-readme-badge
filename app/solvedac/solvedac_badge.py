@@ -43,7 +43,7 @@ def make_badge(user: User, is_compact: bool = False, _test=False) -> str:
     <svg y="115" >
       <title>닉네임</title>
       <foreignObject width="140" height="30">
-        <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="description sub_color">
+        <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="text description sub_color">
           {username}
         </xhtml:span>
       </foreignObject>
@@ -89,7 +89,7 @@ def make_badge(user: User, is_compact: bool = False, _test=False) -> str:
         <svg x="50" y="7">
           <title>랭크</title>
           <foreignObject width="120" height="30">
-            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="tier_text" class="description common_color">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="tier_text" class="text description common_color">
               {tier_text}
             </xhtml:span>
           </foreignObject>
@@ -98,7 +98,7 @@ def make_badge(user: User, is_compact: bool = False, _test=False) -> str:
         <svg x="50" y="22" >
           <title>닉네임</title>
           <foreignObject width="120" height="30">
-            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="description sub_color">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="text description sub_color">
               {username}
             </xhtml:span>
           </foreignObject>

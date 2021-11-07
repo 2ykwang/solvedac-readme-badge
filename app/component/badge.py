@@ -24,7 +24,7 @@ class Badge:
     <style>
     .common_color{{ fill: {self.common_color}; color: {self.common_color}; }}
     .sub_color{{ fill: {self.sub_color}; color: {self.sub_color};}}
-    text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
+    .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
     {self.styles}
     </style>
     {back_ground if self.use_back_color else ""}
