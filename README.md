@@ -23,16 +23,17 @@ e.g) `api?user?(parameter)=(value)`
 
 |     매개변수      |   타입    |                          설명                          | 기본 값 |                   예시                   | 구현 |
 | :---------------: | :-------: | :----------------------------------------------------: | ------- | :--------------------------------------: | ---- |
-|      `theme`      |  string   |                 색 테마를 설정합니다.                  | default | `themes`항목 참고 `default`, `dark`, ... |      |
-|      `type`       |  string   |                   타입을 설정합니다.                   | badge   |    `types` 항목 참고 `badge`, `card`     |      |
+|      `user`       |  string   |        solved.ac 에 등록된 아이디를 입력합니다.        | None    |           `username`,`2ykwang`           |      |
+|      `theme`      |  string   |                 색 테마를 설정합니다.                  | default | `themes`항목 참고 `default`, `dark`, ... | ❌   |
+|      `type`       |  string   |                   타입을 설정합니다.                   | badge   |    `types` 항목 참고 `badge`, `card`     | ❌   |
 |     `compact`     |  boolean  |                뱃지의 모양을 설정합니다                | False   |            `true` or `false`             |      |
-|      `size`       |  string   |             뱃지 또는 카드의 크기 입니다.              | medium  |      `small` or `medium` or `large`      |      |
-|   `back_color`    | hex color |   배경 색을 설정합니다. 기본값은 테마 색을 따릅니다.   | theme   |     Hex Color code `#333`,`#939584`      |      |
-| `use_back_color`  |  boolean  |             배경색을 사용할지 설정합니다.              | true    |            `true` or `false`             |      |
-| `main_font_color` | hex color | 메인 글씨색을 설정합니다. 기본값은 테마 색을 따릅니다. | theme   |     Hex Color code `#333`,`#efefef`      |      |
-| `sub_font_color`  | hex color | 보조 글씨색을 설정합니다. 기본값은 테마 색을 따릅니다. | theme   |     Hex Color code `#333`,`#efefef`      |      |
-|  `border_color`   | hex color |  테두리 색을 설정합니다. 기본값은 테마 색을 따릅니다.  | theme   |     Hex Color code `#333`,`#efefef`      |      |
-|   `use_border`    |  boolean  |             테두리를 사용할지 설정합니다.              | true    |            `true` or `false`             |      |
+|      `size`       |  string   |             뱃지 또는 카드의 크기 입니다.              | medium  |      `small` or `medium` or `large`      | ❌   |
+|   `back_color`    | hex color |   배경 색을 설정합니다. 기본값은 테마 색을 따릅니다.   | theme   |     Hex Color code `#333`,`#939584`      | ❌   |
+| `use_back_color`  |  boolean  |             배경색을 사용할지 설정합니다.              | true    |            `true` or `false`             | ❌   |
+| `main_font_color` | hex color | 메인 글씨색을 설정합니다. 기본값은 테마 색을 따릅니다. | theme   |     Hex Color code `#333`,`#efefef`      | ❌   |
+| `sub_font_color`  | hex color | 보조 글씨색을 설정합니다. 기본값은 테마 색을 따릅니다. | theme   |     Hex Color code `#333`,`#efefef`      | ❌   |
+|  `border_color`   | hex color |  테두리 색을 설정합니다. 기본값은 테마 색을 따릅니다.  | theme   |     Hex Color code `#333`,`#efefef`      | ❌   |
+|   `use_border`    |  boolean  |             테두리를 사용할지 설정합니다.              | true    |            `true` or `false`             | ❌   |
 
 <br>
 
