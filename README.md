@@ -13,9 +13,11 @@
 ### badge type 
 
 #### common
-![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000&)
+![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&)
 
 #### compact
-![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=csdp000&compact=1&ssvzf)
+![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&compact=1)
+
+![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&compact=1&theme=onedark)
 
 ### card type
