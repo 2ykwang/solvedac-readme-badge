@@ -1,6 +1,3 @@
-
-from .solvedac_badge import make_badge as make_badge
-
 from .solvedacfetcher import SolvedacFetcher as SolvedacFetcher
 
 from .tier import get_tier_text
