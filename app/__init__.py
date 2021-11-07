@@ -1,5 +1,6 @@
 from flask import (
-    Flask
+    Flask,
+    send_from_directory
 )
 
 
@@ -8,4 +9,9 @@ def create_app():
 
     from .api import routes as api
     app.register_blueprint(api.bp, url_prefix='/api/v1/')
+
+    @app.route('/<path:path>')
+    def route_static_file(path):
+        return send_from_directory('static', path)
+
     return app
