@@ -6,13 +6,12 @@ from flask import (
 )
 from ..solvedac import (
     solvedacfetcher as solved,
-    solvedac_badge,
     get_user_from_dict,
     User,
 )
 
 from ..component import (
-    badge
+    make_badge
 )
 import os
 import time
@@ -32,46 +31,53 @@ def teardown_request(exception):
         print(f"It took {request_time :.5f} seconds to respond.")
 
 
+# def __handle_generate_parameter() ->:
+#     username = request.args.get('user')
+#
+#     if username is None or len(username) < 1:
+#
+#     # validation
+
+
 def generate_by_username():
-    username = request.args.get('user')
-    component_type = request.args.get('type', 'badge')
-    is_compact = request.args.get('compact', 0)
-    theme = request.args.get('theme', "")
+    username = request.args.get("user")
+    theme = request.args.get("theme", "default")
+    component_type = request.args.get("type", "badge")
+    is_compact = __bool_parse(request.args.get('compact', 'false'))
+    component_size = request.args.get('size', 'small')
+    back_color = request.args.get('back_color', '')
+    use_back_color = __bool_parse(request.args.get('use_back_color', 'true'))
+    common_color = request.args.get('common_color', "")
+    sub_color = request.args.get("sub_color", "")
+    border_color = request.args.get("border_color", "")
+    use_border = __bool_parse(request.args.get("use_border", "true"))
 
-    error_comp = badge
-    if component_type == "card":
-        error_comp = badge
-    elif component_type == "badge":
-        error_comp = badge
-
-    if is_compact is None:
-        is_compact = False
-    else:
-        is_compact = bool(is_compact)
+    comp = make_badge(theme, is_compact,
+                      user=None,
+                      options={'component_size': component_size,
+                               'back_color': back_color,
+                               'use_back_color': use_back_color,
+                               'common_color': common_color,
+                               'sub_color': sub_color,
+                               'border_color': border_color,
+                               'use_border': use_border})
 
     if username is None:
-        return __make_svg_response(error_comp.error_render("can't find user"), 30)
+        return __make_svg_response(comp.error_render("can't find user"), 30)
 
     cache_max_age = int(os.getenv("CACHE_CONTROL"))
 
     # user 생성
     try:
-        user = __get_user(username)
-        # badge 생성
-        comp = solvedac_badge.make_badge(user, is_compact)
-        if component_type == "badge":
-            comp = solvedac_badge.make_badge(user, is_compact, True if theme == 'onedark' else False)
-        elif component_type == "card":
-            comp = solvedac_badge.make_badge(user, is_compact)
+        comp.user = __get_user(username)
 
-        response = __make_svg_response(comp, cache_max_age)
-
+        response = __make_svg_response(comp.render(), cache_max_age)
         return response
 
     except Exception as e:
         print("generate_badge_by_username -", e)
 
-    return __make_svg_response(error_comp.error_render("unknown users"), 30)
+    return __make_svg_response(comp.error_render("unknown users"), 30)
 
 
 def __get_user(username: str) -> User:
@@ -82,9 +88,13 @@ def __get_user(username: str) -> User:
     return user
 
 
-def __make_svg_response(svg, max_age: int = 3600) -> Response:
+def __make_svg_response(svg: str, max_age: int = 3600) -> Response:
     response = make_response(svg)
     response.mimetype = "image/svg+xml"
     response.cache_control.public = True
     response.cache_control.max_age = max_age
     return response
+
+
+def __bool_parse(text: str) -> bool:
+    return text.lower() in ["yes", "true", "1", "t"]
