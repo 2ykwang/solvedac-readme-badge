@@ -83,8 +83,6 @@ class DefaultBadge(Badge):
 
     def render(self) -> str:
         tier_icon = get_tier_icon(self.user.tier)
-
-        self.colorset.use_border = False
         body = f"""
         <title>badge small</title>
         <svg 
