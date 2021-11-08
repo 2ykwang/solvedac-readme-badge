@@ -3,12 +3,38 @@
    solved.ac 유저 정보를 이용해 README.md에 사용 가능한 뱃지 또는 카드를 만들어주는 프로젝트 입니다.
 </div>
 
+## Installation
+
+```sh
+# .env_example 을 복사하여
+# .env 파일 생성
+# API_HOST = "solved.ac"
+
+# 저장소 클론
+$ git clone https://github.com/2ykwang/solvedac-readme-badge .
+
+# Virtual Environment 사용 할 경우
+$ python3 -m venv .venv
+
+# Linux
+$ source .venv/bin/activate
+
+# Windows
+$ .\.venv\Scripts\activate.bat # Command Prompt
+$ .\.venv\Scripts\activate.ps1 # Power Shell
+
+# 실행
+$ pip install -r requirements.txt
+$ flask run
+
+```
+
 ## 사용법
 
 ```markdown
-![solvedac](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=baekjoon_id_here)
+![solvedac-badge](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=baekjoon_id_here)
 
-![solvedac](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=baekjoon_id_here&compact=1)
+![solvedac-badge-compact](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=baekjoon_id_here&compact=1)
 ```
 
 <br>
