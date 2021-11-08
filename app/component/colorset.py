@@ -1,4 +1,5 @@
 import re
+import copy
 
 
 class ColorSet:
@@ -78,7 +79,7 @@ def make_colorset(theme_name, options: dict = None) -> ColorSet:
     result = ColorSet()
 
     if theme_name in __color_set_dict:
-        result = __color_set_dict[theme_name]
+        result = copy.deepcopy(__color_set_dict[theme_name])
 
     if 'use_back_color' in options:
         result.use_back_color = options['use_back_color']
