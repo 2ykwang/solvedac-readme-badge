@@ -65,9 +65,6 @@ class DefaultBadge(Badge):
         self.width = 140
         self.height = 140
 
-        self.colorset.use_back_color = False
-        self.colorset.back_color = "transparent"
-
         self.styles = """
         #username {
             font-size: 0.960em;
