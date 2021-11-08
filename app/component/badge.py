@@ -14,8 +14,10 @@ class Badge:
         self.width = 140
         self.height = 140
         self.styles = ""
+        self._styles = ""
         self.user = None
         self.colorset: ColorSet = make_colorset(ColorSet.DEFAULT)
+        self.size = "small"
 
     def render(self):
         pass
@@ -35,6 +37,7 @@ class Badge:
             .sub_color{{ fill: {self.colorset.sub_color}; color: {self.colorset.sub_color};}}
             .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
             {self.styles}
+            {self._styles}
             </style>
             {back_ground if self.colorset.use_back_color else ""}
             <g>
@@ -62,27 +65,46 @@ class Badge:
 class DefaultBadge(Badge):
     def __init__(self):
         super(DefaultBadge, self).__init__()
-        self.width = 140
-        self.height = 140
+        self.width = 180
+        self.height = 180
+        self.font_size = 1
 
-        self.styles = """
-        #username {
-            font-size: 0.960em;
+    def render(self) -> str:
+        tier_icon = get_tier_icon(self.user.tier)
+
+        """
+            <!-- small 180, 180 1-->
+            <!-- medium 270, 270 1.5-->
+            <!-- large 410, 410 2.25-->
+        """
+        if self.size == "small":
+            self.width = 180
+            self.height = 180
+            self.font_size = 1
+        elif self.size == "medium":
+            self.width = 270
+            self.height = 270
+            self.font_size = 1.5
+        elif self.size == "large":
+            self.width = 410
+            self.height = 410
+            self.font_size = 2.25
+
+        self._styles = f"""
+        #username {{
+            font-size: {self.font_size}em;
             font-weight: 600;
-        }
-        .description { 
+        }}
+        .description {{
             overflow: hidden;
             text-overflow: ellipsis;
             text-align: center;
             display: inline-block;
+            width: 100%;
+            height: 100%;
             white-space: nowrap;
-            width: 140px;
-            height: 30px; 
-        }
+        }}
         """
-
-    def render(self) -> str:
-        tier_icon = get_tier_icon(self.user.tier)
         body = f"""
         <title>badge small</title>
         <svg 
@@ -91,9 +113,9 @@ class DefaultBadge(Badge):
             height="70%" 
             width="70%" 
             id="tier_icon">{tier_icon}</svg> 
-        <svg y="115" >
+        <svg y="85%" >
           <title>닉네임</title>
-          <foreignObject width="140" height="30">
+            <foreignObject width="100%" height="100%">
             <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="text description sub_color">
               {self.user.username}
             </xhtml:span>
@@ -106,51 +128,74 @@ class DefaultBadge(Badge):
 class CompactBadge(Badge):
     def __init__(self):
         super(CompactBadge, self).__init__()
-        self.width = 170
-        self.height = 45
-
-        self.styles = """
-        #tier_text {
-            font-size: 0.72em;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-        }
-        #username {
-            font-size: 0.735em;
-            font-weight: 600;
-        }
-        .description { 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: center;
-            display: inline-block;
-            width: 120px;
-            height: 30px;
-            white-space: nowrap;
-        }
-        """
+        self.width = 240
+        self.height = 70
+        self.big_font_size = 1.1
+        self.small_font_size = 0.85
 
     def render(self) -> str:
         tier_icon = get_tier_icon(self.user.tier)
         tier_text = get_tier_text(self.user.tier)
 
+        """
+            <!-- small 240, 70  1.1, 0.85-->
+            <!-- medium 360, 105 1.65, 1.275-->
+            <!-- large 540, 158 2.475 1.915--> 
+        """
+
+        if self.size == "small":
+            self.width = 240
+            self.height = 70
+            self.big_font_size = 1.1
+            self.small_font_size = 0.85
+        elif self.size == "medium":
+            self.width = 360
+            self.height = 105
+            self.big_font_size = 1.65
+            self.small_font_size = 1.275
+        elif self.size == "large":
+            self.width = 540
+            self.height = 158
+            self.big_font_size = 2.475
+            self.small_font_size = 1.915
+
+        self._styles = f"""
+        #tier_text {{ 
+            font-size: {self.big_font_size}em;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+        }}
+        #username {{
+            font-size: {self.small_font_size}em;
+            font-weight: 600;
+        }}
+        .description {{ 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            display: inline-block;
+            width: 70%;
+            height: 100%;
+            white-space: nowrap;
+        }}
+        """
         body = f"""
         <title>badge compact</title>
         <svg width ="20%" height="80%" x="5%" y="10%">
         {tier_icon}
         </svg>
-        <svg x="50" y="7">
+        <svg x="29%" y="15%">
           <title>랭크</title>
-          <foreignObject width="120" height="30">
+          <foreignObject width="100%" height="100%">
             <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="tier_text" class="text description common_color">
               {tier_text}
             </xhtml:span>
           </foreignObject>
         </svg>
 
-        <svg x="50" y="22" >
+        <svg x="29%" y="48%" >
           <title>닉네임</title>
-          <foreignObject width="120" height="30">
+          <foreignObject width="100%" height="100%">
             <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "username" class="text description sub_color">
               {self.user.username}
             </xhtml:span>
@@ -171,6 +216,7 @@ def make_badge(theme: str, is_compact: bool, user: User = None, options: dict = 
 
     colorset = make_colorset(theme, options)
     badge.colorset = colorset
+    badge.size = options["component_size"]
     badge.user = user
 
     return badge
