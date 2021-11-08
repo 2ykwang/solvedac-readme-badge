@@ -51,7 +51,11 @@ def generate_by_username():
     border_color = request.args.get("border_color", "")
     use_border = __bool_parse(request.args.get("use_border", "true"))
     # 뱃지 기본형일 경우 use_back_color 기본값 False
-    use_back_color = __bool_parse(request.args.get('use_back_color', str(component_type == "card" or (component_type == "badge" and is_compact))))
+    use_back_color = __bool_parse(
+        request.args.get('use_back_color', str(component_type == "card" or (component_type == "badge" and is_compact))))
+    # 뱃지 기본형일 경우 use_border 기본값 False
+    use_border = __bool_parse(
+        request.args.get("use_border", str(component_type == "card" or (component_type == "badge" and is_compact))))
 
     comp = make_badge(theme, is_compact,
                       user=None,
