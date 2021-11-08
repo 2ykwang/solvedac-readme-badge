@@ -1,9 +1,23 @@
 <div align="center">
-    <h2 align="center">solvedac-readme-badge</h2> 
+    <h2 align="center">solvedac-readme-badge</h2>  
    solved.ac 유저 정보를 이용해 README.md에 사용 가능한 뱃지 또는 카드를 만들어주는 프로젝트 입니다.
+   <br><br>
 </div>
 
-## Installation
+## TOC
+
+- [TOC](#toc)
+- [설치](#설치)
+- [사용법](#사용법)
+- [사용자 정의 하기](#사용자-정의-하기)
+  - [설정 가능한 변수](#설정-가능한-변수)
+  - [테마](#테마)
+  - [사이즈](#사이즈)
+  - [타입](#타입)
+    - [뱃지](#뱃지)
+    - [카드](#카드)
+
+## 설치
 
 ```sh
 # .env_example 을 복사하여
@@ -77,6 +91,22 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 |           |  ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&theme=dark&compact=1)   |
 | `onedark` |    `https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&theme=onedark&compact=1`     |
 |           | ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&theme=onedark&compact=1) |
+
+<br>
+
+### 사이즈
+
+`size` 파라미터를 사용해 사이즈를 설정 할 수 있습니다.
+
+입력 가능한 값은 `small`, `medium`, `large` 입니다.
+
+|      사이즈      |                                                          미리보기                                                           |
+| :--------------: | :-------------------------------------------------------------------------------------------------------------------------: |
+| `small`(default) |  ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&theme=default&compact=1&size=small)  |
+|     `medium`     | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&theme=default&compact=1&size=medium) |
+|     `large`      |  ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/api?user=2ykwang&theme=default&compact=1&size=large)  |
+
+기본값은 `small` 입니다.
 
 <br>
 
