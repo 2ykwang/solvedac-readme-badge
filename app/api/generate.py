@@ -39,7 +39,10 @@ def teardown_request(exception):
 #     # validation
 
 
-def generate_by_username():
+def generate_card_by_username():
+    return "test"
+
+def generate_badge_by_username():
     username = request.args.get("user")
     theme = request.args.get("theme", "default")
     component_type = request.args.get("type", "badge")
