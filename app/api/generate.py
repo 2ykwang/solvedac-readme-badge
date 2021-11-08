@@ -71,23 +71,25 @@ def generate_by_username():
         return __make_svg_response(comp.error_render("can't find user"), 30)
 
     cache_max_age = int(os.getenv("CACHE_CONTROL"))
+    timeout = int(os.getenv("TIMEOUT"))
 
     # user 생성
     try:
-        comp.user = __get_user(username)
+        comp.user = __get_user(username, timeout)
 
         response = __make_svg_response(comp.render(), cache_max_age)
         return response
-
+    except TimeoutError as e:
+        print(e)
     except Exception as e:
         print("generate_badge_by_username -", e)
 
     return __make_svg_response(comp.error_render("unknown users"), 30)
 
 
-def __get_user(username: str) -> User:
+def __get_user(username: str, timeout: int = 30) -> User:
     host = os.getenv("API_HOST")
-    fetcher = solved.SolvedacFetcher(host)
+    fetcher = solved.SolvedacFetcher(host, timeout)
     json_data = fetcher.get_user_info(username)
     user = get_user_from_dict(json_data)
     return user
