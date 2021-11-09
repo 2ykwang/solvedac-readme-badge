@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 from urllib.parse import urljoin
 import requests
 
@@ -28,7 +28,7 @@ class SolvedacFetcher:
         except requests.exceptions.Timeout:
             raise TimeoutError(f"get_user_info {self.timeout}s 타임아웃")
 
-    def get_user_problem_stat(self, user_name: str) -> Dict[str, any]:
+    def get_user_problem_stat(self, user_name: str) -> List[Dict[str, any]]:
         r"""사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
 
         :param user_name: (str): 정보를 불러 올 사용자명
