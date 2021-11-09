@@ -1,11 +1,16 @@
-from typing import Dict
-from . import BADGE_DEFAULT_SIZE, BADGE_LARGE_SIZE, BADGE_MEDIUM_SIZE, BADGE_SMALL_SIZE
+from abc import abstractmethod
+from typing import Dict, Final
 from .colorset import ColorSet, make_colorset
 from ..solvedac import (
     User,
     get_tier_text,
     get_tier_icon
 )
+
+BADGE_SMALL_SIZE: Final = "small"
+BADGE_MEDIUM_SIZE: Final = "medium"
+BADGE_LARGE_SIZE: Final = "large"
+BADGE_DEFAULT_SIZE: Final = BADGE_SMALL_SIZE
 
 
 class Badge:
@@ -18,14 +23,18 @@ class Badge:
         self.styles = ""
         self._styles = ""
         self.user = None
-        self.colorset: ColorSet = make_colorset(ColorSet.DEFAULT)
+        self.colorset: ColorSet = None
         self.size = BADGE_DEFAULT_SIZE
 
+    @abstractmethod
     def render(self):
         pass
 
     def _render(self, body: str) -> str:
         # 기본 뼈대
+
+        if self.colorset == None:
+            self.colorset = make_colorset(ColorSet.DEFAULT)
 
         border = f"stroke=\"{self.colorset.border_color}\" stroke-opacity=\"1\" stroke-width=\"0.5\""
         back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.colorset.back_color}\" {border if self.colorset.use_border else ''}/> "

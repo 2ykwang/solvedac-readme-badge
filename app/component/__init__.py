@@ -5,3 +5,4 @@ from .badge import make_badge as make_badge
 
 from .colorset import ColorSet as ColorSet
 from .colorset import make_colorset
+from typing import Final
