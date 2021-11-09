@@ -18,13 +18,13 @@ import time
 
 
 # 요청 처리 전
-def before_request():
+def before_request() -> None:
     g.request_start_time = time.time()
     g.request_time = time.time() - g.request_start_time
 
 
 # 렌더링 된 후
-def teardown_request(exception):
+def teardown_request(exception) -> None:
     request_time = time.time() - g.request_start_time
     # 렌더링 하는 데 x 초 이상 걸릴 경우
     if request_time > 0.5:
@@ -41,6 +41,7 @@ def teardown_request(exception):
 
 def generate_card_by_username():
     return "test"
+
 
 def generate_badge_by_username():
     username = request.args.get("user")

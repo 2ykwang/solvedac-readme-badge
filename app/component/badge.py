@@ -1,3 +1,5 @@
+from typing import Dict
+from . import BADGE_DEFAULT_SIZE, BADGE_LARGE_SIZE, BADGE_MEDIUM_SIZE, BADGE_SMALL_SIZE
 from .colorset import ColorSet, make_colorset
 from ..solvedac import (
     User,
@@ -17,7 +19,7 @@ class Badge:
         self._styles = ""
         self.user = None
         self.colorset: ColorSet = make_colorset(ColorSet.DEFAULT)
-        self.size = "small"
+        self.size = BADGE_DEFAULT_SIZE
 
     def render(self):
         pass
@@ -77,15 +79,15 @@ class DefaultBadge(Badge):
             <!-- medium 270, 270 1.5-->
             <!-- large 410, 410 2.25-->
         """
-        if self.size == "small":
+        if self.size == BADGE_SMALL_SIZE:
             self.width = 180
             self.height = 180
             self.font_size = 1
-        elif self.size == "medium":
+        elif self.size == BADGE_MEDIUM_SIZE:
             self.width = 270
             self.height = 270
             self.font_size = 1.5
-        elif self.size == "large":
+        elif self.size == BADGE_LARGE_SIZE:
             self.width = 410
             self.height = 410
             self.font_size = 2.25
@@ -143,17 +145,17 @@ class CompactBadge(Badge):
             <!-- large 540, 158 2.475 1.915--> 
         """
 
-        if self.size == "small":
+        if self.size == BADGE_SMALL_SIZE:
             self.width = 240
             self.height = 70
             self.big_font_size = 1.1
             self.small_font_size = 0.85
-        elif self.size == "medium":
+        elif self.size == BADGE_MEDIUM_SIZE:
             self.width = 360
             self.height = 105
             self.big_font_size = 1.65
             self.small_font_size = 1.275
-        elif self.size == "large":
+        elif self.size == BADGE_LARGE_SIZE:
             self.width = 540
             self.height = 158
             self.big_font_size = 2.475
@@ -205,7 +207,7 @@ class CompactBadge(Badge):
         return super(CompactBadge, self)._render(body)
 
 
-def make_badge(theme: str, is_compact: bool, user: User = None, options: dict = None) -> Badge:
+def make_badge(theme: str, is_compact: bool, user: User = None, options: Dict[str, str] = None) -> Badge:
     if options is None:
         options = {}
 

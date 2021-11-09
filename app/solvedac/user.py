@@ -1,3 +1,6 @@
+from typing import Dict
+
+
 class User:
     def __init__(self):
         self.username: str = ""
@@ -23,7 +26,7 @@ class User:
         return str(self.json_raw_data)
 
 
-def get_user_from_dict(json_data: dict) -> User:
+def get_user_from_dict(json_data: Dict[str, any]) -> User:
     result = User()
 
     result.username = json_data["handle"]

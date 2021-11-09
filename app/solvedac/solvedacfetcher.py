@@ -1,3 +1,4 @@
+from typing import Dict
 from urllib.parse import urljoin
 import requests
 
@@ -8,7 +9,7 @@ class SolvedacFetcher:
         self.api_url = f'https://{api_host}/api/v3/'
         self.timeout = timeout
 
-    def get_user_info(self, user_name: str) -> dict:
+    def get_user_info(self, user_name: str) -> Dict[str, any]:
         r"""유저 정보를 가져옵니다.
 
         :param user_name: (str): 정보를 불러 올 사용자명
@@ -27,7 +28,7 @@ class SolvedacFetcher:
         except requests.exceptions.Timeout:
             raise TimeoutError(f"get_user_info {self.timeout}s 타임아웃")
 
-    def get_user_problem_stat(self, user_name: str) -> dict:
+    def get_user_problem_stat(self, user_name: str) -> Dict[str, any]:
         r"""사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
 
         :param user_name: (str): 정보를 불러 올 사용자명

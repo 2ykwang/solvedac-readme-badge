@@ -1,14 +1,15 @@
 import re
 import copy
+from typing import Final,Dict
 
 
 class ColorSet:
     """
     뱃지, 카드 색상을 정의하는 클래스
     """
-    DEFAULT = "default"
-    DARK = "dark"
-    ONEDARK = "onedark"
+    DEFAULT: Final = "default"
+    DARK: Final = "dark"
+    ONEDARK: Final = "onedark"
 
     def __init__(self,
                  common_color: str = "#333",
@@ -58,7 +59,7 @@ __color_set_dict = {
 }
 
 
-def make_colorset(theme_name, options: dict = None) -> ColorSet:
+def make_colorset(theme_name:str, options: Dict[str, str] = None) -> ColorSet:
     r"""테마 이름을 입력받아 `ColorSet`을 반환합니다.
 
     :param theme_name: 테마 이름 문자열
