@@ -4,6 +4,8 @@ from flask import (
     Response,
     g
 )
+
+from app.component.badge import USER_NOT_FOUND
 from ..solvedac import (
     solvedacfetcher as solved,
     get_user_from_dict,
@@ -72,7 +74,7 @@ def generate_badge_by_username():
                                'use_border': use_border})
 
     if username is None:
-        return __make_svg_response(comp.error_render("can't find user"), 30)
+        return __make_svg_response(comp.error_render("user 값 확인"), 30)
 
     cache_max_age = int(os.getenv("CACHE_CONTROL", 7200))
     timeout = int(os.getenv("TIMEOUT", 15))
@@ -88,7 +90,7 @@ def generate_badge_by_username():
     except Exception as e:
         print("generate_badge_by_username -", e)
 
-    return __make_svg_response(comp.error_render("unknown users"), 30)
+    return __make_svg_response(comp.error_render(USER_NOT_FOUND), 30)
 
 
 def __get_user(username: str, timeout: int = 30) -> User:

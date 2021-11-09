@@ -12,14 +12,16 @@ BADGE_MEDIUM_SIZE: Final = "medium"
 BADGE_LARGE_SIZE: Final = "large"
 BADGE_DEFAULT_SIZE: Final = BADGE_SMALL_SIZE
 
+USER_NOT_FOUND: Final = "사용자를 불러오지 못했습니다."
+
 
 class Badge:
 
     def __init__(self):
         """
         """
-        self.width = 140
-        self.height = 140
+        self.width = 180
+        self.height = 180
         self.styles = ""
         self._styles = ""
         self.user = None
@@ -27,12 +29,16 @@ class Badge:
         self.size = BADGE_DEFAULT_SIZE
 
     @abstractmethod
-    def render(self):
+    def _set_size(self) -> None:
         pass
 
-    def _render(self, body: str) -> str:
-        # 기본 뼈대
+    @abstractmethod
+    def error_render(self, message: str) -> str:
+        pass
 
+    def render(self, body: str) -> str:
+        self._set_size()
+        # 기본 뼈대
         if self.colorset == None:
             self.colorset = make_colorset(ColorSet.DEFAULT)
 
@@ -55,32 +61,57 @@ class Badge:
                 {body}
             </g>
         </svg>"""
+ 
+         
 
-    def error_render(self, message: str) -> str:
-        error_text = f""" 
-            <text
-            fill="#000000"
-            stroke="#000"
-            x="50%"
-            y="50%"
-            dominant-baseline="middle"
-            text-anchor="middle"
-            stroke-width="0"
-            font-size="14"
-            class="common_color"
-            id="username">{message}</text> 
-        """
-        return self._render(error_text)
 
 
 class DefaultBadge(Badge):
     def __init__(self):
         super(DefaultBadge, self).__init__()
-        self.width = 180
-        self.height = 180
-        self.font_size = 1
+
+        self.__sizes = {
+            BADGE_SMALL_SIZE: {"width": 180, "height": 180, "font_size": 1},
+            BADGE_MEDIUM_SIZE: {"width": 270, "height": 270, "font_size": 1.5},
+            BADGE_LARGE_SIZE: {"width": 410, "height": 410, "font_size": 2.25},
+        }
+        self.width = self.__sizes[BADGE_DEFAULT_SIZE]["width"]
+        self.height = self.__sizes[BADGE_DEFAULT_SIZE]["height"]
+        self.font_size = self.__sizes[BADGE_DEFAULT_SIZE]["font_size"]
+
+    def _set_size(self):
+        if self.size in self.__sizes:
+            size = self.__sizes[self.size]
+            self.width = size["width"]
+            self.height = size["height"]
+            self.font_size = size["font_size"]
+
+    def error_render(self, message: str) -> str:
+        self._set_size()
+
+        self._styles = f"""
+        #error_message {{ font-size: {self.font_size}em; font-weight: 600; }}
+        .description {{ text-align: center; display: inline-block; width: 100%; height: 100%; white-space:normal;}}
+        """
+        error_text = f"""
+        <title>badge {self.size}</title>
+        <svg y="50%" >
+          <title>Error message</title>
+            <foreignObject width="100%" height="100%">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "error_message" class="text description sub_color">
+              {message}
+            </xhtml:span>
+          </foreignObject>
+        </svg>
+            """
+        return super(DefaultBadge, self).render(error_text)
 
     def render(self) -> str:
+        self._set_size()
+
+        if self.user is None:
+            return self.error_render(USER_NOT_FOUND)
+
         tier_icon = get_tier_icon(self.user.tier)
 
         """
@@ -88,36 +119,12 @@ class DefaultBadge(Badge):
             <!-- medium 270, 270 1.5-->
             <!-- large 410, 410 2.25-->
         """
-        if self.size == BADGE_SMALL_SIZE:
-            self.width = 180
-            self.height = 180
-            self.font_size = 1
-        elif self.size == BADGE_MEDIUM_SIZE:
-            self.width = 270
-            self.height = 270
-            self.font_size = 1.5
-        elif self.size == BADGE_LARGE_SIZE:
-            self.width = 410
-            self.height = 410
-            self.font_size = 2.25
-
         self._styles = f"""
-        #username {{
-            font-size: {self.font_size}em;
-            font-weight: 600;
-        }}
-        .description {{
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: center;
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            white-space: nowrap;
-        }}
+        #username {{ font-size: {self.font_size}em; font-weight: 600; }}
+        .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 100%; height: 100%; white-space: nowrap; }}
         """
         body = f"""
-        <title>badge small</title>
+        <title>badge {self.size}</title>
         <svg 
             x="15%" 
             y="9%" 
@@ -133,18 +140,66 @@ class DefaultBadge(Badge):
           </foreignObject>
         </svg>
             """
-        return super(DefaultBadge, self)._render(body)
+        return super(DefaultBadge, self).render(body)
 
 
 class CompactBadge(Badge):
     def __init__(self):
         super(CompactBadge, self).__init__()
-        self.width = 240
-        self.height = 70
-        self.big_font_size = 1.1
-        self.small_font_size = 0.85
+
+        self.__sizes = {
+            BADGE_SMALL_SIZE: {"width": 240, "height": 70, "big_font_size": 1.1, "small_font_size": 0.85},
+            BADGE_MEDIUM_SIZE: {"width": 360, "height": 105, "big_font_size": 1.65, "small_font_size": 1.275},
+            BADGE_LARGE_SIZE: {"width": 540, "height": 158, "big_font_size": 2.475, "small_font_size": 1.915},
+        }
+        self.width = self.__sizes[BADGE_DEFAULT_SIZE]["width"]
+        self.height = self.__sizes[BADGE_DEFAULT_SIZE]["height"]
+        self.big_font_size = self.__sizes[BADGE_DEFAULT_SIZE]["big_font_size"]
+        self.small_font_size = self.__sizes[BADGE_DEFAULT_SIZE]["small_font_size"]
+
+    def _set_size(self):
+        if self.size in self.__sizes:
+            size = self.__sizes[self.size]
+            self.width = size["width"]
+            self.height = size["height"]
+            self.big_font_size = size["big_font_size"]
+            self.small_font_size = size["small_font_size"]
+
+    def error_render(self, message: str) -> str:
+        self._set_size()
+
+        self._styles = f"""
+        #error_title {{  font-size: {self.big_font_size}em; font-weight: 600; letter-spacing: 0.15em; }}
+        #error_message {{ font-size: {self.small_font_size}em; font-weight: 600; }}
+        .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 100%; height: 100%; white-space: nowrap; }}
+        """
+        error_text = f"""
+        <title>badge compact {self.size}</title>
+        <svg y="15%">
+          <title>Error title</title>
+          <foreignObject width="100%" height="100%">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="error_title" class="text description common_color">
+              ERROR
+            </xhtml:span>
+          </foreignObject>
+        </svg>
+        <svg y="48%" >
+          <title>Error message</title>
+          <foreignObject width="100%" height="100%">
+            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "error_message" class="text description sub_color">
+              {message}
+            </xhtml:span>
+          </foreignObject>
+        </svg>
+        """
+        return super(CompactBadge, self).render(error_text)
 
     def render(self) -> str:
+        self._set_size()
+
+        if self.user is None:
+            return self.error_render(USER_NOT_FOUND)
+
         tier_icon = get_tier_icon(self.user.tier)
         tier_text = get_tier_text(self.user.tier)
 
@@ -153,42 +208,10 @@ class CompactBadge(Badge):
             <!-- medium 360, 105 1.65, 1.275-->
             <!-- large 540, 158 2.475 1.915--> 
         """
-
-        if self.size == BADGE_SMALL_SIZE:
-            self.width = 240
-            self.height = 70
-            self.big_font_size = 1.1
-            self.small_font_size = 0.85
-        elif self.size == BADGE_MEDIUM_SIZE:
-            self.width = 360
-            self.height = 105
-            self.big_font_size = 1.65
-            self.small_font_size = 1.275
-        elif self.size == BADGE_LARGE_SIZE:
-            self.width = 540
-            self.height = 158
-            self.big_font_size = 2.475
-            self.small_font_size = 1.915
-
         self._styles = f"""
-        #tier_text {{ 
-            font-size: {self.big_font_size}em;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-        }}
-        #username {{
-            font-size: {self.small_font_size}em;
-            font-weight: 600;
-        }}
-        .description {{ 
-            overflow: hidden;
-            text-overflow: ellipsis;
-            text-align: center;
-            display: inline-block;
-            width: 70%;
-            height: 100%;
-            white-space: nowrap;
-        }}
+        #tier_text {{  font-size: {self.big_font_size}em; font-weight: 600; letter-spacing: 0.15em; }}
+        #username {{ font-size: {self.small_font_size}em; font-weight: 600; }}
+        .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 70%; height: 100%; white-space: nowrap; }}
         """
         body = f"""
         <title>badge compact</title>
@@ -203,7 +226,6 @@ class CompactBadge(Badge):
             </xhtml:span>
           </foreignObject>
         </svg>
-
         <svg x="29%" y="48%" >
           <title>닉네임</title>
           <foreignObject width="100%" height="100%">
@@ -213,7 +235,7 @@ class CompactBadge(Badge):
           </foreignObject>
         </svg>
         """
-        return super(CompactBadge, self)._render(body)
+        return super(CompactBadge, self).render(body)
 
 
 def make_badge(theme: str, is_compact: bool, user: User = None, options: Dict[str, str] = None) -> Badge:
