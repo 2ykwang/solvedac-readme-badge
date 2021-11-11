@@ -93,7 +93,7 @@ class DefaultBadge(Badge):
         """
         error_text = f"""
         <title>badge {self.size}</title>
-        <svg y="50%" >
+        <svg y="50%">
           <title>Error message</title>
             <foreignObject width="100%" height="100%">
             <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "error_message" class="text description sub_color">
@@ -123,12 +123,12 @@ class DefaultBadge(Badge):
         """
         body = f"""
         <title>badge {self.size}</title>
-        <svg 
+        <svg
             x="15%" 
             y="9%" 
             height="70%" 
             width="70%" 
-            id="tier_icon">{tier_icon}</svg> 
+            id="tier_badge">{tier_icon}</svg> 
         <svg y="85%" >
           <title>닉네임</title>
             <foreignObject width="100%" height="100%">
