@@ -2,7 +2,7 @@ import multiprocessing
 import os
 
 # gunicorn - configuration
-wsgi_app = "app:create_app()"
+wsgi_app = "run:app"
 # bind = f'{os.getenv("HOST")}:{os.getenv("PORT")}'
 workers = multiprocessing.cpu_count() * 2 + 1
 
