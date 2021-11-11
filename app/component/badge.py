@@ -1,12 +1,12 @@
 from abc import abstractmethod
 from typing import Dict, Final
-from .colorset import ColorSet, make_colorset
-from ..solvedac import (
-    User,
+from app.component.colorset import ColorSet, make_colorset
+from app.component.tier import (
     get_tier_text,
-    get_tier_icon
+    get_tier_icon,
+    get_tier_hex_color
 )
-
+from app.solvedac import User
 BADGE_SMALL_SIZE: Final = "small"
 BADGE_MEDIUM_SIZE: Final = "medium"
 BADGE_LARGE_SIZE: Final = "large"
@@ -24,7 +24,7 @@ class Badge:
         self.height = 180
         self.styles = ""
         self._styles = ""
-        self.user = None
+        self.user: User = None
         self.colorset: ColorSet = None
         self.size = BADGE_DEFAULT_SIZE
 
@@ -50,6 +50,7 @@ class Badge:
             height="{self.height}"
             xmlns="http://www.w3.org/2000/svg"> 
             <style>
+            {f"#tier_badge {{ filter: drop-shadow({get_tier_hex_color(self.user.tier)} 0px 1px 6px); }}" if self.colorset.use_shadow else ''}
             .common_color{{ fill: {self.colorset.common_color}; color: {self.colorset.common_color}; }}
             .sub_color{{ fill: {self.colorset.sub_color}; color: {self.colorset.sub_color};}}
             .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
@@ -61,9 +62,6 @@ class Badge:
                 {body}
             </g>
         </svg>"""
- 
-         
-
 
 
 class DefaultBadge(Badge):
@@ -91,7 +89,7 @@ class DefaultBadge(Badge):
 
         self._styles = f"""
         #error_message {{ font-size: {self.font_size}em; font-weight: 600; }}
-        .description {{ text-align: center; display: inline-block; width: 100%; height: 100%; white-space:normal;}}
+        .description {{ text-align: center; display: inline-block; width: 100%; height: 100%; white-space:normal; }}
         """
         error_text = f"""
         <title>badge {self.size}</title>
@@ -209,14 +207,15 @@ class CompactBadge(Badge):
             <!-- large 540, 158 2.475 1.915--> 
         """
         self._styles = f"""
-        #tier_text {{  font-size: {self.big_font_size}em; font-weight: 600; letter-spacing: 0.15em; }}
-        #username {{ font-size: {self.small_font_size}em; font-weight: 600; }}
+        #tier_text {{  font-size: {self.big_font_size}em; font-weight: 600; letter-spacing: 0.15em;   }}
+        #username {{ font-size: {self.small_font_size}em; font-weight: 600; }} 
         .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 70%; height: 100%; white-space: nowrap; }}
+        
         """
         body = f"""
         <title>badge compact</title>
-        <svg width ="20%" height="80%" x="5%" y="10%">
-        {tier_icon}
+        <svg width ="20%" height="80%" x="5%" y="10%" id="tier_badge"> 
+            {tier_icon} 
         </svg>
         <svg x="29%" y="15%">
           <title>랭크</title>

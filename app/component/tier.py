@@ -1,5 +1,25 @@
 from typing import Final
 
+UNKNOWN: Final = 0
+BRONZE: Final = 1
+SILVER: Final = 2
+GOLD: Final = 3
+PLATINUM: Final = 4
+DIAMOND: Final = 5
+RUBY: Final = 6
+MASTER: Final = 7
+
+__tier_badge_color: Final = {
+    UNKNOWN: "#555",
+    BRONZE: "#7A3C00",
+    SILVER: "#8CB6FF",
+    GOLD: "#FFD800",
+    PLATINUM: "#2CFFE3",
+    DIAMOND: "#00B4FC",
+    RUBY: "#FF0062",
+    MASTER: "#EE99FF",
+}
+
 __tier_text: Final = {
     0: "Unknown",
     1: "Bronze V",
@@ -83,3 +103,29 @@ def get_tier_icon(level: int) -> str:
         return __tier_icon[level]
     else:
         return __tier_icon[0]
+
+
+def __get_tier_section(level: int) -> int:
+    if level <= 0:
+        return UNKNOWN
+    elif level <= 5:
+        return BRONZE
+    elif level <= 10:
+        return SILVER
+    elif level <= 15:
+        return GOLD
+    elif level <= 20:
+        return PLATINUM
+    elif level <= 25:
+        return DIAMOND
+    elif level <= 30:
+        return RUBY
+    elif level <= 31:
+        return MASTER
+    else:
+        return UNKNOWN
+
+
+def get_tier_hex_color(level: int) -> str:
+    section = __get_tier_section(level)
+    return __tier_badge_color[section]

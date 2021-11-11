@@ -56,6 +56,7 @@ def generate_badge_by_username():
     sub_color = request.args.get("sub_color", "")
     border_color = request.args.get("border_color", "")
     use_border = __bool_parse(request.args.get("use_border", "true"))
+    use_shadow = __bool_parse(request.args.get("use_shadow", "true"))
     # 뱃지 기본형일 경우 use_back_color 기본값 False
     use_back_color = __bool_parse(
         request.args.get('use_back_color', str(component_type == "card" or (component_type == "badge" and is_compact))))
@@ -71,7 +72,9 @@ def generate_badge_by_username():
                                'common_color': common_color,
                                'sub_color': sub_color,
                                'border_color': border_color,
-                               'use_border': use_border})
+                               'use_border': use_border,
+                               'use_shadow': use_shadow,
+                               })
 
     if username is None:
         return __make_svg_response(comp.error_render("user 값 확인"), 30)

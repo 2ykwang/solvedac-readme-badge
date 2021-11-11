@@ -19,7 +19,8 @@ class ColorSet:
                  back_color: str = "#FFF",
                  use_back_color: bool = True,
                  border_color: str = "#EEE",
-                 use_border: bool = True
+                 use_border: bool = True,
+                 use_shadow: bool = True,
                  ):
         self.common_color = common_color
         self.sub_color = sub_color
@@ -27,6 +28,7 @@ class ColorSet:
         self.use_back_color = use_back_color
         self.border_color = border_color
         self.use_border = use_border
+        self.use_shadow = use_shadow
 
 
 __default_color = ColorSet(
@@ -34,40 +36,30 @@ __default_color = ColorSet(
     sub_color="#0099EF",
     back_color="#FFF",
     border_color="#EEE",
-    use_back_color=True,
-    use_border=True
 )
 __swift_color = ColorSet(
     common_color="#000",
     sub_color="#E44D35",
     back_color="#FFF",
     border_color="#EEE",
-    use_back_color=True,
-    use_border=True
 )
 __dark_color = ColorSet(
     common_color="#fff",
     sub_color="#599552",
     back_color="#121619",
     border_color="#EEEEEE",
-    use_back_color=True,
-    use_border=True
 )
 __onedark_color = ColorSet(
     common_color="#E3BE79",
     sub_color="#D96D74",
     back_color="#282C34",
     border_color="#EEE",
-    use_back_color=True,
-    use_border=True
 )
 __github_dark_color = ColorSet(
     common_color="#a2d2fb",
     sub_color="#cea5fb",
     back_color="#21262d",
     border_color="#161b22",
-    use_back_color=True,
-    use_border=True
 )
 
 __color_set_dict = {
@@ -97,30 +89,33 @@ def make_colorset(theme_name: str, options: Dict[str, str] = None) -> ColorSet:
     if options is None:
         options = {}
 
-    result = ColorSet()
+    colorset = ColorSet()
 
     if theme_name in __color_set_dict:
-        result = copy.deepcopy(__color_set_dict[theme_name])
+        colorset = copy.deepcopy(__color_set_dict[theme_name])
 
     if 'use_back_color' in options:
-        result.use_back_color = options['use_back_color']
+        colorset.use_back_color = options['use_back_color']
 
     if 'back_color' in options and __is_hex(options['back_color']):
-        result.back_color = f"#{options['back_color']}"
+        colorset.back_color = f"#{options['back_color']}"
 
     if 'common_color' in options and __is_hex(options['common_color']):
-        result.common_color = f"#{options['common_color']}"
+        colorset.common_color = f"#{options['common_color']}"
 
     if 'sub_color' in options and __is_hex(options['sub_color']):
-        result.sub_color = f"#{options['sub_color']}"
+        colorset.sub_color = f"#{options['sub_color']}"
 
     if 'border_color' in options and __is_hex(options['border_color']):
-        result.border_color = f"#{options['border_color']}"
+        colorset.border_color = f"#{options['border_color']}"
 
     if 'use_border' in options:
-        result.use_border = options['use_border']
+        colorset.use_border = options['use_border']
 
-    return result
+    if 'use_shadow' in options:
+        colorset.use_shadow = options['use_shadow']
+
+    return colorset
 
 
 def __is_hex(code: str) -> bool:
