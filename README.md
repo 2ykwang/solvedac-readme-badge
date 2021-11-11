@@ -106,14 +106,13 @@ e.g) `compact=true` or `compact=false`
 
 e.g:) `theme=onedark`, `theme=dark`, ...
 
-|    값     |                                               예시 URI /미리보기                                                |
-| :-------: | :-------------------------------------------------------------------------------------------------------------: |
-| `default` |    `https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1`     |
-|           | ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1) |
-|  `dark`   |      `https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=dark&compact=1`      |
-|           |  ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=dark&compact=1)   |
-| `onedark` |    `https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=onedark&compact=1`     |
-|           | ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=onedark&compact=1) |
+|      값       |                                                   예시 URI /미리보기                                                   |
+| :-----------: | :--------------------------------------------------------------------------------------------------------------------: |
+|   `default`   |   ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1)   |
+|    `swift`    |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=swift&compact=1)    |
+|    `dark`     |      ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=dark&compact=1)      |
+|   `onedark`   |   ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=onedark&compact=1)   |
+| `github-dark` | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=github-dark&compact=1) |
 
 <br>
 

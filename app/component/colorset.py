@@ -8,8 +8,10 @@ class ColorSet:
     뱃지, 카드 색상을 정의하는 클래스
     """
     DEFAULT: Final = "default"
+    SWIFT: Final = "swift"
     DARK: Final = "dark"
     ONEDARK: Final = "onedark"
+    GITHUB_DARK: Final = "github-dark"
 
     def __init__(self,
                  common_color: str = "#333",
@@ -35,11 +37,19 @@ __default_color = ColorSet(
     use_back_color=True,
     use_border=True
 )
+__swift_color = ColorSet(
+    common_color="#000",
+    sub_color="#E44D35",
+    back_color="#FFF",
+    border_color="#EEE",
+    use_back_color=True,
+    use_border=True
+)
 __dark_color = ColorSet(
     common_color="#fff",
-    sub_color="#eee",
-    back_color="#333",
-    border_color="#EEE",
+    sub_color="#599552",
+    back_color="#121619",
+    border_color="#EEEEEE",
     use_back_color=True,
     use_border=True
 )
@@ -51,11 +61,21 @@ __onedark_color = ColorSet(
     use_back_color=True,
     use_border=True
 )
+__github_dark_color = ColorSet(
+    common_color="#a2d2fb",
+    sub_color="#cea5fb",
+    back_color="#21262d",
+    border_color="#161b22",
+    use_back_color=True,
+    use_border=True
+)
 
 __color_set_dict = {
     ColorSet.DEFAULT: __default_color,
+    ColorSet.SWIFT: __swift_color,
     ColorSet.DARK: __dark_color,
-    ColorSet.ONEDARK: __onedark_color
+    ColorSet.ONEDARK: __onedark_color,
+    ColorSet.GITHUB_DARK: __github_dark_color,
 }
 
 
