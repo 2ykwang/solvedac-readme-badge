@@ -1,12 +1,10 @@
 from abc import abstractmethod
 from typing import Dict, Final
+
 from app.component.colorset import ColorSet, make_colorset
-from app.component.tier import (
-    get_tier_text,
-    get_tier_icon,
-    get_tier_hex_color
-)
+from app.component.tier import get_tier_hex_color, get_tier_icon, get_tier_text
 from app.solvedac import User
+
 BADGE_SMALL_SIZE: Final = "small"
 BADGE_MEDIUM_SIZE: Final = "medium"
 BADGE_LARGE_SIZE: Final = "large"
@@ -16,10 +14,8 @@ USER_NOT_FOUND: Final = "사용자를 불러오지 못했습니다."
 
 
 class Badge:
-
     def __init__(self):
-        """
-        """
+        """ """
         self.width = 180
         self.height = 180
         self.styles = ""
@@ -42,7 +38,7 @@ class Badge:
         if self.colorset == None:
             self.colorset = make_colorset(ColorSet.DEFAULT)
 
-        border = f"stroke=\"{self.colorset.border_color}\" stroke-opacity=\"1\" stroke-width=\"0.5\""
+        border = f'stroke="{self.colorset.border_color}" stroke-opacity="1" stroke-width="0.5"'
         back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.colorset.back_color}\" {border if self.colorset.use_border else ''}/> "
         return f"""
         <svg
@@ -124,11 +120,11 @@ class DefaultBadge(Badge):
         body = f"""
         <title>badge {self.size}</title>
         <svg
-            x="15%" 
-            y="9%" 
-            height="70%" 
-            width="70%" 
-            id="tier_badge">{tier_icon}</svg> 
+            x="15%"
+            y="9%"
+            height="70%"
+            width="70%"
+            id="tier_icon">{tier_icon}</svg>
         <svg y="85%" >
           <title>닉네임</title>
             <foreignObject width="100%" height="100%">
@@ -146,9 +142,24 @@ class CompactBadge(Badge):
         super(CompactBadge, self).__init__()
 
         self.__sizes = {
-            BADGE_SMALL_SIZE: {"width": 240, "height": 70, "big_font_size": 1.1, "small_font_size": 0.85},
-            BADGE_MEDIUM_SIZE: {"width": 360, "height": 105, "big_font_size": 1.65, "small_font_size": 1.275},
-            BADGE_LARGE_SIZE: {"width": 540, "height": 158, "big_font_size": 2.475, "small_font_size": 1.915},
+            BADGE_SMALL_SIZE: {
+                "width": 240,
+                "height": 70,
+                "big_font_size": 1.1,
+                "small_font_size": 0.85,
+            },
+            BADGE_MEDIUM_SIZE: {
+                "width": 360,
+                "height": 105,
+                "big_font_size": 1.65,
+                "small_font_size": 1.275,
+            },
+            BADGE_LARGE_SIZE: {
+                "width": 540,
+                "height": 158,
+                "big_font_size": 2.475,
+                "small_font_size": 1.915,
+            },
         }
         self.width = self.__sizes[BADGE_DEFAULT_SIZE]["width"]
         self.height = self.__sizes[BADGE_DEFAULT_SIZE]["height"]
@@ -204,18 +215,17 @@ class CompactBadge(Badge):
         """
             <!-- small 240, 70  1.1, 0.85-->
             <!-- medium 360, 105 1.65, 1.275-->
-            <!-- large 540, 158 2.475 1.915--> 
+            <!-- large 540, 158 2.475 1.915-->
         """
         self._styles = f"""
         #tier_text {{  font-size: {self.big_font_size}em; font-weight: 600; letter-spacing: 0.15em;   }}
-        #username {{ font-size: {self.small_font_size}em; font-weight: 600; }} 
+        #username {{ font-size: {self.small_font_size}em; font-weight: 600; }}
         .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 70%; height: 100%; white-space: nowrap; }}
-        
         """
         body = f"""
         <title>badge compact</title>
-        <svg width ="20%" height="80%" x="5%" y="10%" id="tier_badge"> 
-            {tier_icon} 
+        <svg width ="20%" height="80%" x="5%" y="10%" id="tier_badge">
+            {tier_icon}
         </svg>
         <svg x="29%" y="15%">
           <title>랭크</title>
@@ -237,7 +247,9 @@ class CompactBadge(Badge):
         return super(CompactBadge, self).render(body)
 
 
-def make_badge(theme: str, is_compact: bool, user: User = None, options: Dict[str, str] = None) -> Badge:
+def make_badge(
+    theme: str, is_compact: bool, user: User = None, options: Dict[str, str] = None
+) -> Badge:
     if options is None:
         options = {}
 

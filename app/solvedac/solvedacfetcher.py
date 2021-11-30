@@ -1,12 +1,13 @@
 from typing import Dict, List
 from urllib.parse import urljoin
+
 import requests
 
 
 class SolvedacFetcher:
     def __init__(self, api_host: str, timeout: int = 30):
         self.api_host = api_host
-        self.api_url = f'https://{api_host}/api/v3/'
+        self.api_url = f"https://{api_host}/api/v3/"
         self.timeout = timeout
 
     def get_user_info(self, user_name: str) -> Dict[str, any]:
@@ -24,7 +25,7 @@ class SolvedacFetcher:
             if response.status_code == 200:
                 return response.json()
             else:
-                raise Exception('유저 정보를 불러올 수 없습니다.')
+                raise Exception("유저 정보를 불러올 수 없습니다.")
         except requests.exceptions.Timeout:
             raise TimeoutError(f"get_user_info {self.timeout}s 타임아웃")
 
@@ -43,11 +44,11 @@ class SolvedacFetcher:
             if response.status_code == 200:
                 return response.json()
             else:
-                raise Exception('유저 문제풀이 정보를 불러올 수 없습니다.')
+                raise Exception("유저 문제풀이 정보를 불러올 수 없습니다.")
         except requests.exceptions.Timeout:
             raise TimeoutError(f"get_user_problem_stat {self.timeout}s 타임아웃")
 
     def __url_wrapping(self, path: str):
-        if path[0] == '/':
+        if path[0] == "/":
             path = path[1:]
         return urljoin(self.api_url, path)

@@ -1,27 +1,29 @@
-import re
 import copy
-from typing import Final, Dict
+import re
+from typing import Dict, Final
 
 
 class ColorSet:
     """
     뱃지, 카드 색상을 정의하는 클래스
     """
+
     DEFAULT: Final = "default"
     SWIFT: Final = "swift"
     DARK: Final = "dark"
     ONEDARK: Final = "onedark"
     GITHUB_DARK: Final = "github-dark"
 
-    def __init__(self,
-                 common_color: str = "#333",
-                 sub_color: str = "#0099EF",
-                 back_color: str = "#FFF",
-                 use_back_color: bool = True,
-                 border_color: str = "#EEE",
-                 use_border: bool = True,
-                 use_shadow: bool = True,
-                 ):
+    def __init__(
+        self,
+        common_color: str = "#333",
+        sub_color: str = "#0099EF",
+        back_color: str = "#FFF",
+        use_back_color: bool = True,
+        border_color: str = "#EEE",
+        use_border: bool = True,
+        use_shadow: bool = True,
+    ):
         self.common_color = common_color
         self.sub_color = sub_color
         self.back_color = back_color
@@ -94,30 +96,30 @@ def make_colorset(theme_name: str, options: Dict[str, str] = None) -> ColorSet:
     if theme_name in __color_set_dict:
         colorset = copy.deepcopy(__color_set_dict[theme_name])
 
-    if 'use_back_color' in options:
-        colorset.use_back_color = options['use_back_color']
+    if "use_back_color" in options:
+        colorset.use_back_color = options["use_back_color"]
 
-    if 'back_color' in options and __is_hex(options['back_color']):
+    if "back_color" in options and __is_hex(options["back_color"]):
         colorset.back_color = f"#{options['back_color']}"
 
-    if 'common_color' in options and __is_hex(options['common_color']):
+    if "common_color" in options and __is_hex(options["common_color"]):
         colorset.common_color = f"#{options['common_color']}"
 
-    if 'sub_color' in options and __is_hex(options['sub_color']):
+    if "sub_color" in options and __is_hex(options["sub_color"]):
         colorset.sub_color = f"#{options['sub_color']}"
 
-    if 'border_color' in options and __is_hex(options['border_color']):
+    if "border_color" in options and __is_hex(options["border_color"]):
         colorset.border_color = f"#{options['border_color']}"
 
-    if 'use_border' in options:
-        colorset.use_border = options['use_border']
+    if "use_border" in options:
+        colorset.use_border = options["use_border"]
 
-    if 'use_shadow' in options:
-        colorset.use_shadow = options['use_shadow']
+    if "use_shadow" in options:
+        colorset.use_shadow = options["use_shadow"]
 
     return colorset
 
 
 def __is_hex(code: str) -> bool:
-    _rgbstring = re.compile(r'[a-fA-F0-9]{3}(?:[a-fA-F0-9]{3})?$')
+    _rgbstring = re.compile(r"[a-fA-F0-9]{3}(?:[a-fA-F0-9]{3})?$")
     return bool(_rgbstring.match(code))
