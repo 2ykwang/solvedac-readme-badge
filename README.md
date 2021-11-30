@@ -77,8 +77,8 @@ e.g) `compact=true` or `compact=false`
 
 | 값                | compact                                                                                                       |
 | :---------------- | :------------------------------------------------------------------------------------------------------------ |
-| `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&compact=1&use_shadow=1) |
-| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&use_shadow=1)           |
+| `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&compact=1&use_shadow=1&) |
+| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&use_shadow=1&)           |
 
 기본값은 `false` 입니다.
 
@@ -93,16 +93,16 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 |                                                                                                                             |                                                                                                                                 |                                                                                                                          |
 | :-------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: |
 |                                                          `default`                                                          |                                                             `swift`                                                             |                                                          `dark`                                                          |
-| ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&use_shadow=1) |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1)    | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1) |
+| ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&use_shadow=1&) |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1&)    | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1&) |
 |                                                          `onedark`                                                          |                                                          `github-dark`                                                          |                                                                                                                          |
-| ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1) | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1) |                                                                                                                          |
+| ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1&) | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1&) |                                                                                                                          |
 
 |                                                                                                                   |                                                                                                                       |                                                                                                                |
 | :---------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
 |                                                     `default`                                                     |                                                        `swift`                                                        |                                                     `dark`                                                     |
-| ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&use_shadow=1) |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&use_shadow=1)    | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&use_shadow=1) |
+| ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&use_shadow=1&) |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&use_shadow=1&)    | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&use_shadow=1&) |
 |                                                     `onedark`                                                     |                                                     `github-dark`                                                     |                                                                                                                |
-| ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&use_shadow=1) | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&use_shadow=1) |                                                                                                                |
+| ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&use_shadow=1&) | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&use_shadow=1&) |                                                                                                                |
 
 <br>
 
@@ -114,9 +114,9 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 
 | 값               | 미리보기                                                                                                                               |
 | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
-| `small`(default) | ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=small&use_shadow=1)   |
-| `medium`         | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=medium&use_shadow=1) |
-| `large`          | ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=large&use_shadow=1)   |
+| `small`(default) | ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=small&use_shadow=1&)   |
+| `medium`         | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=medium&use_shadow=1&) |
+| `large`          | ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=large&use_shadow=1&)   |
 
 기본값은 `small` 입니다.
 
