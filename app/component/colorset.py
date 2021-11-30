@@ -35,31 +35,31 @@ __default_color = ColorSet(
     common_color="#333",
     sub_color="#0099EF",
     back_color="#FFF",
-    border_color="#EEE",
+    border_color="#E4E2E2",
 )
 __swift_color = ColorSet(
     common_color="#000",
     sub_color="#E44D35",
     back_color="#FFF",
-    border_color="#EEE",
+    border_color="#E4E2E2",
 )
 __dark_color = ColorSet(
     common_color="#fff",
     sub_color="#599552",
     back_color="#121619",
-    border_color="#EEEEEE",
+    border_color="#2D373F",
 )
 __onedark_color = ColorSet(
     common_color="#E3BE79",
     sub_color="#D96D74",
     back_color="#282C34",
-    border_color="#EEE",
+    border_color="#E4E2E2",
 )
 __github_dark_color = ColorSet(
     common_color="#a2d2fb",
     sub_color="#cea5fb",
     back_color="#21262d",
-    border_color="#161b22",
+    border_color="#E4E2E2",
 )
 
 __color_set_dict = {

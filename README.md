@@ -82,6 +82,7 @@ e.g) `badge?user?(parameter)=(value)`
 |   `sub_color`    | hex color | 보조 글씨색을 설정합니다. 기본값은 테마 색을 따릅니다. | `theme`   |           Hex Color code `333`,`efefef`           |
 |  `border_color`  | hex color |  테두리 색을 설정합니다. 기본값은 테마 색을 따릅니다.  | `theme`   |           Hex Color code `333`,`efefef`           |
 |   `use_border`   |  boolean  |             테두리를 사용할지 설정합니다.              | `True`    |                 `true` or `false`                 |
+|   `use_shadow`   |  boolean  |             그림자를 사용할지 설정합니다.              | `True`    |                 `true` or `false`                 |
 
 <br>
 
@@ -91,10 +92,10 @@ e.g) `badge?user?(parameter)=(value)`
 
 e.g) `compact=true` or `compact=false`
 
-|        값         |                                               compact                                                |
-| :---------------: | :--------------------------------------------------------------------------------------------------: |
-|      `True`       | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&compact=1) |
-| `False` (default) |     ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&)      |
+|        값         |                                                      compact                                                      |
+| :---------------: | :---------------------------------------------------------------------------------------------------------------: |
+|      `True`       | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&compact=1&use_shadow=1) |
+| `False` (default) |      ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&use_shadow=1)      |
 
 기본값은 `false` 입니다.
 
@@ -106,13 +107,13 @@ e.g) `compact=true` or `compact=false`
 
 e.g:) `theme=onedark`, `theme=dark`, ...
 
-|      값       |                                                   예시 URI /미리보기                                                   |
-| :-----------: | :--------------------------------------------------------------------------------------------------------------------: |
-|   `default`   |   ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1)   |
-|    `swift`    |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=swift&compact=1)    |
-|    `dark`     |      ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=dark&compact=1)      |
-|   `onedark`   |   ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=onedark&compact=1)   |
-| `github-dark` | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=github-dark&compact=1) |
+|      값       |                                                         예시 URI /미리보기                                                          |
+| :-----------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+|   `default`   |   ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&use_shadow=1)   |
+|    `swift`    |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1)    |
+|    `dark`     |      ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1)      |
+|   `onedark`   |   ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1)   |
+| `github-dark` | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1) |
 
 <br>
 
@@ -122,11 +123,11 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 
 입력 가능한 값은 `small`, `medium`, `large` 입니다.
 
-|        값        |                                                           미리보기                                                            |
-| :--------------: | :---------------------------------------------------------------------------------------------------------------------------: |
-| `small`(default) |  ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&size=small)  |
-|     `medium`     | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&size=medium) |
-|     `large`      |  ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&size=large)  |
+|        값        |                                                                  미리보기                                                                  |
+| :--------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| `small`(default) |  ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&size=small&use_shadow=1)  |
+|     `medium`     | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&size=medium&use_shadow=1) |
+|     `large`      |  ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/generate/badge?user=2ykwang&theme=default&compact=1&size=large&use_shadow=1)  |
 
 기본값은 `small` 입니다.
 
