@@ -1,5 +1,6 @@
-import unittest
 import os
+import unittest
+
 from app.solvedac.solvedacfetcher import SolvedacFetcher
 
 
@@ -29,5 +30,5 @@ class TestFetchingData(unittest.TestCase):
         self.assertEqual(ACTUAL, EXPECTED)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
