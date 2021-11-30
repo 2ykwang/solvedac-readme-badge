@@ -53,7 +53,7 @@ class Badge:
             height="{self.height}"
             xmlns="http://www.w3.org/2000/svg"> 
             <style>
-            #tier_badge {{ {drop_shadow} }}"  
+            #tier_badge {{ {drop_shadow} }}
             .common_color{{ fill: {self.colorset.common_color}; color: {self.colorset.common_color}; }}
             .sub_color{{ fill: {self.colorset.sub_color}; color: {self.colorset.sub_color};}}
             .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
