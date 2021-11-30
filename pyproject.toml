@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "solvedac-readme-badge"
+version = "0.1.0"
+description = "solvedac readme badge generator"
+authors = ["2ykwang"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^2.0.2"
+gunicorn = "^20.1.0"
+python-dotenv = "^0.19.2"
+requests = "^2.26.0"
+
+[tool.poetry.dev-dependencies]
+black = "^21.11b1"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
