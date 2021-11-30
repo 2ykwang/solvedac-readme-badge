@@ -14,34 +14,17 @@
     - [모양](#모양)
     - [테마](#테마)
     - [사이즈](#사이즈)
-- [카드](#카드)
-  - [설정 가능한 변수](#설정-가능한-변수-1)
-    - [모양](#모양-1)
-    - [테마](#테마-1)
-    - [사이즈](#사이즈-1)
 
 ## 설치
 
 ```sh
-# .env_example 을 복사하여
-# .env 파일 생성
-# API_HOST = "solved.ac"
-
-# 저장소 클론
 $ git clone https://github.com/2ykwang/solvedac-readme-badge .
+$ poetry install
 
-# Virtual Environment 사용 할 경우
-$ python3 -m venv .venv
+# make .env
+$ touch .env
+$ echo API_HOST="solved.ac" >> .env
 
-# Linux
-$ source .venv/bin/activate
-
-# Windows
-$ .\.venv\Scripts\activate.bat # Command Prompt
-$ .\.venv\Scripts\activate.ps1 # Power Shell
-
-# 실행
-$ pip install -r requirements.txt
 $ flask run
 
 ```
@@ -92,8 +75,8 @@ e.g) `badge?user?(parameter)=(value)`
 
 e.g) `compact=true` or `compact=false`
 
-| 값                | compact                                                                                                  |
-| :---------------- | :------------------------------------------------------------------------------------------------------- |
+| 값                | compact                                                                                                       |
+| :---------------- | :------------------------------------------------------------------------------------------------------------ |
 | `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&compact=1&use_shadow=1) |
 | `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&use_shadow=1)           |
 
@@ -107,13 +90,19 @@ e.g) `compact=true` or `compact=false`
 
 e.g:) `theme=onedark`, `theme=dark`, ...
 
-| 값            | 예시 URI /미리보기                                                                                                         |
-| :------------ | :------------------------------------------------------------------------------------------------------------------------- |
-| `default`     | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&use_shadow=1)     |
-| `swift`       | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1)       |
-| `dark`        | ![dark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1)           |
-| `onedark`     | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1)     |
-| `github-dark` | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1) |
+|                                                                                                                             |                                                                                                                                 |                                                                                                                          |
+| :-------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: |
+|                                                          `default`                                                          |                                                             `swift`                                                             |                                                          `dark`                                                          |
+| ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&use_shadow=1) |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1)    | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1) |
+|                                                          `onedark`                                                          |                                                          `github-dark`                                                          |                                                                                                                          |
+| ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1) | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1) |                                                                                                                          |
+
+|                                                                                                                   |                                                                                                                       |                                                                                                                |
+| :---------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
+|                                                     `default`                                                     |                                                        `swift`                                                        |                                                     `dark`                                                     |
+| ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&use_shadow=1) |    ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&use_shadow=1)    | ![default](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&use_shadow=1) |
+|                                                     `onedark`                                                     |                                                     `github-dark`                                                     |                                                                                                                |
+| ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&use_shadow=1) | ![onedark](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&use_shadow=1) |                                                                                                                |
 
 <br>
 
@@ -123,8 +112,8 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 
 입력 가능한 값은 `small`, `medium`, `large` 입니다.
 
-| 값               | 미리보기                                                                                                                          |
-| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| 값               | 미리보기                                                                                                                               |
+| :--------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
 | `small`(default) | ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=small&use_shadow=1)   |
 | `medium`         | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=medium&use_shadow=1) |
 | `large`          | ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=large&use_shadow=1)   |
@@ -132,13 +121,3 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 기본값은 `small` 입니다.
 
 <br>
-
-## 카드
-
-### 설정 가능한 변수
-
-#### 모양
-
-#### 테마
-
-#### 사이즈

@@ -35,10 +35,17 @@ class Badge:
     def render(self, body: str) -> str:
         self._set_size()
         # 기본 뼈대
-        if self.colorset == None:
+
+        if self.colorset is None:
             self.colorset = make_colorset(ColorSet.DEFAULT)
 
         border = f'stroke="{self.colorset.border_color}" stroke-opacity="1" stroke-width="0.5"'
+        drop_shadow = (
+            f"filter: drop-shadow({get_tier_hex_color(self.user.tier)} 0px 1px 6px);"
+            if self.colorset.use_shadow and self.user is not None
+            else ""
+        )
+
         back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.colorset.back_color}\" {border if self.colorset.use_border else ''}/> "
         return f"""
         <svg
@@ -46,7 +53,7 @@ class Badge:
             height="{self.height}"
             xmlns="http://www.w3.org/2000/svg"> 
             <style>
-            {f"#tier_badge {{ filter: drop-shadow({get_tier_hex_color(self.user.tier)} 0px 1px 6px); }}" if self.colorset.use_shadow else ''}
+            #tier_badge {{ {drop_shadow} }}"  
             .common_color{{ fill: {self.colorset.common_color}; color: {self.colorset.common_color}; }}
             .sub_color{{ fill: {self.colorset.sub_color}; color: {self.colorset.sub_color};}}
             .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
