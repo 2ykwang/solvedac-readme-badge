@@ -73,11 +73,14 @@ def generate_badge_by_username():
     # user 생성
     try:
 
-        if cache.get(username) is None:
-            cache.set(username, __get_user(username, timeout))
-            print(f"데이터 불러옴: {username}")
-
         cached_user = cache.get(username)
+        if cached_user is None:
+            cache.set(
+                username,
+                __get_user(username, timeout),
+                timeout=current_app.config["CACHE_DEFAULT_TIMEOUT"],
+            )
+            print(f"데이터 불러옴: {username}")
 
         comp.user = cached_user
 
