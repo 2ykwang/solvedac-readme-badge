@@ -8,7 +8,8 @@ class Config:
     TIMEOUT = int(os.getenv("TIMEOUT") or 30)
 
     # flask cache ( api call )
-    CACHE_TYPE = "SimpleCache"
+    CACHE_TYPE = "FileSystemCache"
+    CACHE_DIR = os.getenv("CACHE_DIR") or f"{basedir}/_cache"
     CACHE_DEFAULT_TIMEOUT = int(os.getenv("CACHE_USER_FETCH") or 300)  # api call cache
 
     # image cache
