@@ -3,7 +3,7 @@ import time
 from typing import Union
 
 from app import cache
-from app.component import USER_NOT_FOUND, Options, make_badge
+from app.component import Options, make_badge
 from app.solvedac import SolvedacFetcher, User, get_user_from_dict
 from flask import Response, current_app, g, make_response, request
 

@@ -1,6 +1,6 @@
 import unittest
 
-from app.component.badge import USER_NOT_FOUND, CompactBadge, DefaultBadge
+from app.component.badge import Badge, CompactBadge, DefaultBadge
 from app.solvedac.user import User
 
 
@@ -24,14 +24,14 @@ class TestBadge(unittest.TestCase):
         compact_badge = CompactBadge()
 
         ACTUAL = compact_badge.render()
-        EXPECTED = USER_NOT_FOUND
+        EXPECTED = Badge.USER_NOT_FOUND
 
         self.assertIn(EXPECTED, ACTUAL)
 
         default_badge = DefaultBadge()
 
         ACTUAL = default_badge.render()
-        EXPECTED = USER_NOT_FOUND
+        EXPECTED = Badge.USER_NOT_FOUND
 
         self.assertIn(EXPECTED, ACTUAL)
 

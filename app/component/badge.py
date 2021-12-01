@@ -1,20 +1,15 @@
 from abc import abstractmethod
+from typing import Final
 
-from app.component.colorset import ColorSet, make_colorset
 from app.component.options import Options
+from app.component.theme import Theme, make_theme
 from app.component.tier import get_tier_hex_color, get_tier_icon, get_tier_text
 from app.solvedac import User
 
-from . import (
-    BADGE_DEFAULT_SIZE,
-    BADGE_LARGE_SIZE,
-    BADGE_MEDIUM_SIZE,
-    BADGE_SMALL_SIZE,
-    USER_NOT_FOUND,
-)
-
 
 class Badge:
+    USER_NOT_FOUND: Final = "사용자를 불러오지 못했습니다."
+
     def __init__(self):
         """ """
         self.width = 180
@@ -22,8 +17,8 @@ class Badge:
         self.styles = ""
         self._styles = ""
         self.user: User = None
-        self.colorset: ColorSet = None
-        self.size = BADGE_DEFAULT_SIZE
+        self.theme: Theme = None
+        self.size = Options.DEFAULT_SIZE
 
     @abstractmethod
     def _set_size(self) -> None:
@@ -35,17 +30,19 @@ class Badge:
 
     def _render(self, body: str) -> str:
 
-        if self.colorset is None:
-            self.colorset = make_colorset(Options())
+        if self.theme is None:
+            self.theme = make_theme(Options())
 
-        border = f'stroke="{self.colorset.border_color}" stroke-opacity="1" stroke-width="0.5"'
+        border = (
+            f'stroke="{self.theme.border_color}" stroke-opacity="1" stroke-width="0.5"'
+        )
         drop_shadow = (
             f"filter: drop-shadow({get_tier_hex_color(self.user.tier)} 0px 1px 6px);"
-            if self.colorset.use_shadow and self.user is not None
+            if self.theme.use_shadow and self.user is not None
             else ""
         )
 
-        back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.colorset.back_color}\" {border if self.colorset.use_border else ''}/> "
+        back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.theme.back_color}\" {border if self.theme.use_border else ''}/> "
         return f"""
         <svg
             width="{self.width}"
@@ -53,13 +50,13 @@ class Badge:
             xmlns="http://www.w3.org/2000/svg"> 
             <style>
             #tier_badge {{ {drop_shadow} }}
-            .common_color{{ fill: {self.colorset.common_color}; color: {self.colorset.common_color}; }}
-            .sub_color{{ fill: {self.colorset.sub_color}; color: {self.colorset.sub_color};}}
+            .common_color{{ fill: {self.theme.common_color}; color: {self.theme.common_color}; }}
+            .sub_color{{ fill: {self.theme.sub_color}; color: {self.theme.sub_color};}}
             .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
             {self.styles}
             {self._styles}
             </style>
-            {back_ground if self.colorset.use_back_color else ""}
+            {back_ground if self.theme.use_back_color else ""}
             <g>
                 {body}
             </g>
@@ -70,7 +67,7 @@ class Badge:
         self._set_size()
 
         if self.user is None:
-            return self.error_render(USER_NOT_FOUND)
+            return self.error_render(self.USER_NOT_FOUND)
 
         return self._render(body)
 
@@ -80,13 +77,13 @@ class DefaultBadge(Badge):
         super(DefaultBadge, self).__init__()
 
         self.__sizes = {
-            BADGE_SMALL_SIZE: {"width": 180, "height": 180, "font_size": 1},
-            BADGE_MEDIUM_SIZE: {"width": 270, "height": 270, "font_size": 1.5},
-            BADGE_LARGE_SIZE: {"width": 410, "height": 410, "font_size": 2.25},
+            Options.SMALL_SIZE: {"width": 180, "height": 180, "font_size": 1},
+            Options.MEDIUM_SIZE: {"width": 270, "height": 270, "font_size": 1.5},
+            Options.LARGE_SIZE: {"width": 410, "height": 410, "font_size": 2.25},
         }
-        self.width = self.__sizes[BADGE_DEFAULT_SIZE]["width"]
-        self.height = self.__sizes[BADGE_DEFAULT_SIZE]["height"]
-        self.font_size = self.__sizes[BADGE_DEFAULT_SIZE]["font_size"]
+        self.width = self.__sizes[Options.DEFAULT_SIZE]["width"]
+        self.height = self.__sizes[Options.DEFAULT_SIZE]["height"]
+        self.font_size = self.__sizes[Options.DEFAULT_SIZE]["font_size"]
 
     def _set_size(self):
         if self.size in self.__sizes:
@@ -119,7 +116,7 @@ class DefaultBadge(Badge):
         self._set_size()
 
         if self.user is None:
-            return self.error_render(USER_NOT_FOUND)
+            return self.error_render(self.USER_NOT_FOUND)
 
         tier_icon = get_tier_icon(self.user.tier)
 
@@ -157,29 +154,29 @@ class CompactBadge(Badge):
         super(CompactBadge, self).__init__()
 
         self.__sizes = {
-            BADGE_SMALL_SIZE: {
+            Options.SMALL_SIZE: {
                 "width": 240,
                 "height": 70,
                 "big_font_size": 1.1,
                 "small_font_size": 0.85,
             },
-            BADGE_MEDIUM_SIZE: {
+            Options.MEDIUM_SIZE: {
                 "width": 360,
                 "height": 105,
                 "big_font_size": 1.65,
                 "small_font_size": 1.275,
             },
-            BADGE_LARGE_SIZE: {
+            Options.LARGE_SIZE: {
                 "width": 540,
                 "height": 158,
                 "big_font_size": 2.475,
                 "small_font_size": 1.915,
             },
         }
-        self.width = self.__sizes[BADGE_DEFAULT_SIZE]["width"]
-        self.height = self.__sizes[BADGE_DEFAULT_SIZE]["height"]
-        self.big_font_size = self.__sizes[BADGE_DEFAULT_SIZE]["big_font_size"]
-        self.small_font_size = self.__sizes[BADGE_DEFAULT_SIZE]["small_font_size"]
+        self.width = self.__sizes[Options.DEFAULT_SIZE]["width"]
+        self.height = self.__sizes[Options.DEFAULT_SIZE]["height"]
+        self.big_font_size = self.__sizes[Options.DEFAULT_SIZE]["big_font_size"]
+        self.small_font_size = self.__sizes[Options.DEFAULT_SIZE]["small_font_size"]
 
     def _set_size(self):
         if self.size in self.__sizes:
@@ -222,7 +219,7 @@ class CompactBadge(Badge):
         self._set_size()
 
         if self.user is None:
-            return self.error_render(USER_NOT_FOUND)
+            return self.error_render(self.USER_NOT_FOUND)
 
         tier_icon = get_tier_icon(self.user.tier)
         tier_text = get_tier_text(self.user.tier)
@@ -269,8 +266,8 @@ def make_badge(user: User = None, options: Options = None) -> Badge:
 
     badge = CompactBadge() if options.is_compact else DefaultBadge()
 
-    colorset = make_colorset(options)
-    badge.colorset = colorset
+    theme = make_theme(options)
+    badge.theme = theme
     badge.size = options.size
     badge.user = user
 

@@ -1,6 +1,12 @@
+from typing import Final
+
+
 class Options:
-    DEFAULT_THEME = "white"
-    DEFAULT_SIZE = "small"
+    SMALL_SIZE: Final = "small"
+    MEDIUM_SIZE: Final = "medium"
+    LARGE_SIZE: Final = "large"
+    DEFAULT_SIZE: Final = SMALL_SIZE
+    DEFAULT_THEME: Final = "white"
 
     def __init__(
         self,
