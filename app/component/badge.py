@@ -33,9 +33,7 @@ class Badge:
     def error_render(self, message: str) -> str:
         pass
 
-    def render(self, body: str) -> str:
-        self._set_size()
-        # 기본 뼈대
+    def _render(self, body: str) -> str:
 
         if self.colorset is None:
             self.colorset = make_colorset(Options())
@@ -66,6 +64,15 @@ class Badge:
                 {body}
             </g>
         </svg>"""
+
+    def render(self, body: str) -> str:
+
+        self._set_size()
+
+        if self.user is None:
+            return self.error_render(USER_NOT_FOUND)
+
+        return self._render(body)
 
 
 class DefaultBadge(Badge):
@@ -106,7 +113,7 @@ class DefaultBadge(Badge):
           </foreignObject>
         </svg>
             """
-        return super(DefaultBadge, self).render(error_text)
+        return super(DefaultBadge, self)._render(error_text)
 
     def render(self) -> str:
         self._set_size()
@@ -209,7 +216,7 @@ class CompactBadge(Badge):
           </foreignObject>
         </svg>
         """
-        return super(CompactBadge, self).render(error_text)
+        return super(CompactBadge, self)._render(error_text)
 
     def render(self) -> str:
         self._set_size()

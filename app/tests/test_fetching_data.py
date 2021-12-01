@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from app.solvedac.solvedacfetcher import SolvedacFetcher
+from app.solvedac import SolvedacFetcher
 
 
 class TestFetchingData(unittest.TestCase):

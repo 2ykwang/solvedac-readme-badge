@@ -25,9 +25,9 @@ class SolvedacFetcher:
             if response.status_code == 200:
                 return response.json()
             else:
-                raise Exception("유저 정보를 불러올 수 없습니다.")
+                raise Exception("유저 정보를 불러올 수 없습니다.", user_name)
         except requests.exceptions.Timeout:
-            raise TimeoutError(f"get_user_info {self.timeout}s 타임아웃")
+            raise TimeoutError(f"get_user_info {self.timeout}s 타임아웃", user_name)
 
     def get_user_problem_stat(self, user_name: str) -> List[Dict[str, any]]:
         r"""사용자가 푼 문제 개수를 문제 수준별로 가져옵니다.
@@ -44,9 +44,9 @@ class SolvedacFetcher:
             if response.status_code == 200:
                 return response.json()
             else:
-                raise Exception("유저 문제풀이 정보를 불러올 수 없습니다.")
+                raise Exception("유저 문제풀이 정보를 불러올 수 없습니다.", user_name)
         except requests.exceptions.Timeout:
-            raise TimeoutError(f"get_user_problem_stat {self.timeout}s 타임아웃")
+            raise TimeoutError(f"get_user_problem_stat {self.timeout}s 타임아웃", user_name)
 
     def __url_wrapping(self, path: str):
         if path[0] == "/":
