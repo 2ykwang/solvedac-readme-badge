@@ -4,23 +4,23 @@ from typing import Dict
 class User:
     def __init__(
         self,
-        username="",
-        bio="",
-        tier=0,
-        user_class=0,
-        user_class_decoration="",
-        ration=0,
-        exp=0,
-        rank=0,
+        username: str = "",
+        bio: str = "",
+        tier: int = 0,
+        user_class: int = 0,
+        user_class_decoration: str = "",
+        rating: int = 0,
+        exp: int = 0,
+        rank: int = 0,
     ):
-        self.username: str = ""
-        self.bio: str = ""
-        self.tier: int = 0
-        self.user_class: int = 0
-        self.user_class_decoration: str = ""
-        self.rating: int = 0
-        self.exp: int = 0
-        self.rank: int = 0
+        self.username: str = username
+        self.bio: str = bio
+        self.tier: int = tier
+        self.user_class: int = user_class
+        self.user_class_decoration: str = user_class_decoration
+        self.rating: int = rating
+        self.exp: int = exp
+        self.rank: int = rank
 
         self.json_raw_data: dict = {}
 

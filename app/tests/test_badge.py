@@ -1,4 +1,5 @@
 import unittest
+
 from app.component.badge import USER_NOT_FOUND, CompactBadge, DefaultBadge
 from app.solvedac.user import User
 
@@ -52,5 +53,6 @@ class TestBadge(unittest.TestCase):
 
         self.assertIn(EXPECTED, ACTUAL)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

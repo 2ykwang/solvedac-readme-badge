@@ -1,9 +1,11 @@
 import os
 import time
+from typing import Union
 
 from app import cache
 from app.component import make_badge
 from app.component.badge import USER_NOT_FOUND
+from app.component.options import Options
 from app.solvedac import User, get_user_from_dict
 from app.solvedac import solvedacfetcher as solved
 from flask import Response, current_app, g, make_response, request
@@ -17,52 +19,26 @@ def before_request() -> None:
 # 렌더링 된 후
 def teardown_request(exception) -> None:
     request_time = time.time() - g.request_start_time
-    if request_time > 0.05:
-        print(f"It took `{request_time :.5f}` seconds to respond.")
+    if request_time > 0.4:
+        current_app.logger.warning(f"It took `{request_time :.5f}` seconds to respond.")
 
 
 def generate_badge_by_username():
     username = request.args.get("user")
-    theme = request.args.get("theme", "default")
-    component_type = request.args.get("type", "badge")
-    is_compact = __bool_parse(request.args.get("compact", "false"))
-    component_size = request.args.get("size", "small")
-    back_color = request.args.get("back_color", "")
-    common_color = request.args.get("common_color", "")
-    sub_color = request.args.get("sub_color", "")
-    border_color = request.args.get("border_color", "")
-    use_border = __bool_parse(request.args.get("use_border", "true"))
-    use_shadow = __bool_parse(request.args.get("use_shadow", "true"))
-    # 뱃지 기본형일 경우 use_back_color 기본값 False
-    use_back_color = __bool_parse(
-        request.args.get(
-            "use_back_color",
-            str(component_type == "card" or (component_type == "badge" and is_compact)),
-        )
-    )
-    # 뱃지 기본형일 경우 use_border 기본값 False
-    use_border = __bool_parse(
-        request.args.get(
-            "use_border",
-            str(component_type == "card" or (component_type == "badge" and is_compact)),
-        )
-    )
 
-    comp = make_badge(
-        theme,
-        is_compact,
-        user=None,
-        options={
-            "component_size": component_size,
-            "back_color": back_color,
-            "use_back_color": use_back_color,
-            "common_color": common_color,
-            "sub_color": sub_color,
-            "border_color": border_color,
-            "use_border": use_border,
-            "use_shadow": use_shadow,
-        },
+    options = Options(
+        theme=request.args.get("theme", Options.DEFAULT_THEME),
+        size=request.args.get("size", Options.DEFAULT_SIZE),
+        common_color=request.args.get("common_color", ""),
+        sub_color=request.args.get("sub_color", ""),
+        back_color=request.args.get("back_color", ""),
+        border_color=request.args.get("border_color", ""),
+        use_shadow=__bool_parse(request.args.get("use_shadow", "true")),
+        is_compact=__bool_parse(request.args.get("compact", "false")),
+        use_back_color=__bool_parse(request.args.get("use_back_color", "true")),
+        use_border=__bool_parse(request.args.get("use_border", "true")),
     )
+    comp = make_badge(None, options)
 
     if username is None:
         return __make_svg_response(comp.error_render("user 값 확인"), 30)
@@ -75,7 +51,7 @@ def generate_badge_by_username():
 
         if cache.get(username) is None:
             cache.set(username, __get_user(username, timeout))
-            print(f"데이터 불러옴: {username}")
+            current_app.logger.info(f"데이터 불러옴: {username}")
 
         cached_user = cache.get(username)
 
@@ -84,9 +60,9 @@ def generate_badge_by_username():
         response = __make_svg_response(comp.render(), cache_max_age)
         return response
     except TimeoutError as e:
-        print(e)
+        current_app.logger.error(e)
     except Exception as e:
-        print("generate_badge_by_username -", e)
+        current_app.logger.warn("generate_badge_by_username -", e)
 
     return __make_svg_response(comp.error_render(USER_NOT_FOUND), 30)
 
@@ -107,5 +83,5 @@ def __make_svg_response(svg: str, max_age: int = 3600) -> Response:
     return response
 
 
-def __bool_parse(text: str) -> bool:
-    return text.lower() in ["yes", "true", "1", "t"]
+def __bool_parse(text: Union[str, bool]) -> bool:
+    return text if type(text) == bool else text.lower() in ["yes", "true", "1", "t"]

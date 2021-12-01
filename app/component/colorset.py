@@ -1,6 +1,8 @@
 import copy
 import re
-from typing import Dict, Final
+from typing import Final
+
+from app.component.options import Options
 
 
 class ColorSet:
@@ -8,7 +10,7 @@ class ColorSet:
     뱃지, 카드 색상을 정의하는 클래스
     """
 
-    DEFAULT: Final = "default"
+    WHITE: Final = "WHITE"
     SWIFT: Final = "swift"
     DARK: Final = "dark"
     ONEDARK: Final = "onedark"
@@ -27,13 +29,13 @@ class ColorSet:
         self.common_color = common_color
         self.sub_color = sub_color
         self.back_color = back_color
-        self.use_back_color = use_back_color
         self.border_color = border_color
+        self.use_back_color = use_back_color
         self.use_border = use_border
         self.use_shadow = use_shadow
 
 
-__default_color = ColorSet(
+__white_color = ColorSet(
     common_color="#333",
     sub_color="#0099EF",
     back_color="#FFF",
@@ -65,7 +67,7 @@ __github_dark_color = ColorSet(
 )
 
 __color_set_dict = {
-    ColorSet.DEFAULT: __default_color,
+    ColorSet.WHITE: __white_color,
     ColorSet.SWIFT: __swift_color,
     ColorSet.DARK: __dark_color,
     ColorSet.ONEDARK: __onedark_color,
@@ -73,17 +75,10 @@ __color_set_dict = {
 }
 
 
-def make_colorset(theme_name: str, options: Dict[str, str] = None) -> ColorSet:
-    r"""테마 이름을 입력받아 `ColorSet`을 반환합니다.
+def make_colorset(options: Options) -> ColorSet:
+    r"""옵션을 입력받아 `ColorSet`을 반환합니다.
 
-    :param theme_name: 테마 이름 문자열
-    :param options: dict
-        use_back_color: (bool): 배경 색 적용 여부
-        back_color: (str): 배경 색 Hex
-        common_color: (str): common 글씨 색 Hex
-        sub_color: (str): sub 글씨 색 Hex
-        border_color: (str): 테두리 글씨 색
-        use_border: (bool): 테두리 적용 여부
+    :param options: 옵션 객체
 
     :return: :class: `ColorSet` 객체
     :rtype: colorset.ColorSet
@@ -93,29 +88,24 @@ def make_colorset(theme_name: str, options: Dict[str, str] = None) -> ColorSet:
 
     colorset = ColorSet()
 
-    if theme_name in __color_set_dict:
-        colorset = copy.deepcopy(__color_set_dict[theme_name])
+    if options.theme in __color_set_dict:
+        colorset = copy.deepcopy(__color_set_dict[options.theme])
 
-    if "use_back_color" in options:
-        colorset.use_back_color = options["use_back_color"]
+    if __is_hex(options.back_color):
+        colorset.back_color = f"#{options.back_color}"
 
-    if "back_color" in options and __is_hex(options["back_color"]):
-        colorset.back_color = f"#{options['back_color']}"
+    if __is_hex(options.common_color):
+        colorset.common_color = f"#{options.common_color}"
 
-    if "common_color" in options and __is_hex(options["common_color"]):
-        colorset.common_color = f"#{options['common_color']}"
+    if __is_hex(options.sub_color):
+        colorset.sub_color = f"#{options.sub_color}"
 
-    if "sub_color" in options and __is_hex(options["sub_color"]):
-        colorset.sub_color = f"#{options['sub_color']}"
+    if __is_hex(options.border_color):
+        colorset.border_color = f"#{options.border_color}"
 
-    if "border_color" in options and __is_hex(options["border_color"]):
-        colorset.border_color = f"#{options['border_color']}"
-
-    if "use_border" in options:
-        colorset.use_border = options["use_border"]
-
-    if "use_shadow" in options:
-        colorset.use_shadow = options["use_shadow"]
+    colorset.use_back_color = options.use_back_color
+    colorset.use_border = options.use_border
+    colorset.use_shadow = options.use_shadow
 
     return colorset
 

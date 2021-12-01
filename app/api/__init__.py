@@ -1,2 +1,1 @@
-from . import routes
-from . import generate
+from . import generate, routes

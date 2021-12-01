@@ -1,16 +1,17 @@
 from abc import abstractmethod
-from typing import Dict, Final
 
 from app.component.colorset import ColorSet, make_colorset
+from app.component.options import Options
 from app.component.tier import get_tier_hex_color, get_tier_icon, get_tier_text
 from app.solvedac import User
 
-BADGE_SMALL_SIZE: Final = "small"
-BADGE_MEDIUM_SIZE: Final = "medium"
-BADGE_LARGE_SIZE: Final = "large"
-BADGE_DEFAULT_SIZE: Final = BADGE_SMALL_SIZE
-
-USER_NOT_FOUND: Final = "사용자를 불러오지 못했습니다."
+from . import (
+    BADGE_DEFAULT_SIZE,
+    BADGE_LARGE_SIZE,
+    BADGE_MEDIUM_SIZE,
+    BADGE_SMALL_SIZE,
+    USER_NOT_FOUND,
+)
 
 
 class Badge:
@@ -37,7 +38,7 @@ class Badge:
         # 기본 뼈대
 
         if self.colorset is None:
-            self.colorset = make_colorset(ColorSet.DEFAULT)
+            self.colorset = make_colorset(Options())
 
         border = f'stroke="{self.colorset.border_color}" stroke-opacity="1" stroke-width="0.5"'
         drop_shadow = (
@@ -254,20 +255,16 @@ class CompactBadge(Badge):
         return super(CompactBadge, self).render(body)
 
 
-def make_badge(
-    theme: str, is_compact: bool, user: User = None, options: Dict[str, str] = None
-) -> Badge:
+def make_badge(user: User = None, options: Options = None) -> Badge:
+
     if options is None:
-        options = {}
+        options = Options()
 
-    if is_compact:
-        badge = CompactBadge()
-    else:
-        badge = DefaultBadge()
+    badge = CompactBadge() if options.is_compact else DefaultBadge()
 
-    colorset = make_colorset(theme, options)
+    colorset = make_colorset(options)
     badge.colorset = colorset
-    badge.size = options["component_size"]
+    badge.size = options.size
     badge.user = user
 
     return badge
