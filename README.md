@@ -111,7 +111,7 @@ e.g) `compact=true` or `compact=false`
 | 값                | compact                                                                                                   |
 | :---------------- | :-------------------------------------------------------------------------------------------------------- |
 | `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=leaisrevolution&compact=1&use_shadow=1&) |
-| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=jthis&use_shadow=1&)           |
+| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=jthis&use_shadow=1&compact=0)           |
 
 기본값은 `false` 입니다.
 
