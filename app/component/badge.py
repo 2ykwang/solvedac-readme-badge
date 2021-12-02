@@ -2,8 +2,13 @@ from abc import abstractmethod
 from typing import Final
 
 from app.component.options import Options
-from app.component.theme import Theme, make_theme
-from app.component.tier import get_tier_hex_color, get_tier_icon, get_tier_text
+from app.component.theme import Theme
+from app.component.utils import (
+    get_tier_hex_color,
+    get_tier_icon,
+    get_tier_text,
+    make_theme,
+)
 from app.solvedac import User
 
 
@@ -257,18 +262,3 @@ class CompactBadge(Badge):
         </svg>
         """
         return super(CompactBadge, self).render(body)
-
-
-def make_badge(user: User = None, options: Options = None) -> Badge:
-
-    if options is None:
-        options = Options()
-
-    badge = CompactBadge() if options.is_compact else DefaultBadge()
-
-    theme = make_theme(options)
-    badge.theme = theme
-    badge.size = options.size
-    badge.user = user
-
-    return badge

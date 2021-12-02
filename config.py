@@ -1,3 +1,4 @@
+import logging
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -15,6 +16,8 @@ class Config:
     # image cache
     CACHE_CONTROL = int(os.getenv("CACHE_CONTROL") or 600)
 
+    from flask import Flask
+
     @staticmethod
-    def init_app(app):
-        pass
+    def init_app(app: Flask):
+        app.logger.setLevel(logging.INFO)
