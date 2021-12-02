@@ -1,23 +1,29 @@
-import unittest
-
+import pytest
 from app.component.badge import Badge, CompactBadge, DefaultBadge
 from app.solvedac.user import User
 
 
-class TestBadge(unittest.TestCase):
+def test_func():
+    a = 4
+    assert a == 5
+
+
+class TestBadge:
+    @pytest.fixture
     def setUp(self) -> None:
 
-        user = User()
-        user.username = "2ykwang"
-        user.bio = "biography"
-        user.tier = 8
-        user.user_class = 1
-        user.user_class_decoration = ""
-        user.rating = 400
-        user.exp = 0
-        user.rank = 19250
+        test_user = User(
+            username="2ykwang",
+            bio="biography",
+            tier=8,
+            user_class=1,
+            user_class_decoration="",
+            rating=400,
+            exp=0,
+            rank=19250,
+        )
 
-        self.user = user
+        self.test_user = test_user
 
     def test_render_error(self):
 
@@ -26,14 +32,14 @@ class TestBadge(unittest.TestCase):
         ACTUAL = compact_badge.render()
         EXPECTED = Badge.USER_NOT_FOUND
 
-        self.assertIn(EXPECTED, ACTUAL)
+        assert EXPECTED in ACTUAL
 
         default_badge = DefaultBadge()
 
         ACTUAL = default_badge.render()
         EXPECTED = Badge.USER_NOT_FOUND
 
-        self.assertIn(EXPECTED, ACTUAL)
+        assert EXPECTED in ACTUAL
 
     def test_render(self):
 
@@ -43,7 +49,7 @@ class TestBadge(unittest.TestCase):
         ACTUAL = compact_badge.render()
         EXPECTED = self.user.username
 
-        self.assertIn(EXPECTED, ACTUAL)
+        assert EXPECTED in ACTUAL
 
         default_badge = CompactBadge()
         default_badge.user = self.user
@@ -51,8 +57,4 @@ class TestBadge(unittest.TestCase):
         ACTUAL = default_badge.render()
         EXPECTED = self.user.username
 
-        self.assertIn(EXPECTED, ACTUAL)
-
-
-if __name__ == "__main__":
-    unittest.main()
+        assert EXPECTED in ACTUAL
