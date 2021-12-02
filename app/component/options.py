@@ -8,6 +8,8 @@ class Options:
     DEFAULT_SIZE: Final = SMALL_SIZE
     DEFAULT_THEME: Final = "white"
 
+    SIZE_LIST: Final = [SMALL_SIZE, MEDIUM_SIZE, LARGE_SIZE]
+
     def __init__(
         self,
         theme: str = DEFAULT_THEME,
@@ -31,3 +33,7 @@ class Options:
         self.use_border = use_border
         self.use_shadow = use_shadow
         self.is_compact = is_compact
+
+    @staticmethod
+    def get_size_list():
+        return Options.SIZE_LIST

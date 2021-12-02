@@ -1,0 +1,91 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+    max-width: 1200px;
+}
+
+:root {
+    --main-color: #564bbe;
+    --default-typo-white: #fefefe;
+    --default-typo-black: #333;
+    --main-bg-color: #f7f9fa;
+    --footer-bg-color: #ebecee; 
+    --default-font: "Noto Sans KR", "Nanum Gothic", "Apple SD Gothic Neo",
+        sans-serif;
+}
+
+/* 전역 */
+html,
+body {
+    background-color: var(--main-bg-color);
+    font-family: var(--default-font);
+    width: 100%;
+    height: 100%;
+}
+
+footer {
+    background-color: var(--footer-bg-color);
+}
+
+/* 포인트 글씨체 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.text-muted,
+.nav {
+    font-family: var(--point-font);
+}
+
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: none !important;
+}
+
+.card-link {
+    color: var(--default-typo-black);
+}
+
+img {
+    max-width: 100%;
+}
+
+.text-main {
+    color: var(--main-color);
+}
+
+/* 북 리스트 */
+.card-link:hover {
+    color: var(--main-color);
+}
+
+.nav>li>a:hover {
+    color: var(--main-color);
+}
+
+.page-item.active .page-link {
+    color: var(--default-typo-white);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.btn-main {
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+.btn-main:hover {
+    color: var(--default-typo-white);
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+}
