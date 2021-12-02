@@ -1,1 +1,1 @@
-from . import generate, routes
+from . import routes, views

@@ -1,23 +1,11 @@
 import os
-import time
+
 from typing import Union
 
 from app import cache
 from app.component import Options, make_badge
 from app.solvedac import SolvedacFetcher, User, get_user_from_dict
 from flask import Response, current_app, g, make_response, request
-
-
-# 요청 처리 전
-def before_request() -> None:
-    g.request_start_time = time.time()
-
-
-# 렌더링 된 후
-def teardown_request(exception) -> None:
-    request_time = time.time() - g.request_start_time
-    if request_time > 0.4:
-        current_app.logger.warning(f"It took `{request_time :.5f}` seconds to respond.")
 
 
 def generate_badge_by_username():
