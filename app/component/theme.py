@@ -32,6 +32,10 @@ class Theme:
         self.use_border = use_border
         self.use_shadow = use_shadow
 
+    @staticmethod
+    def get_theme_list():
+        return THEME_DICT.keys()
+
 
 THEME_WHITE = Theme(
     common_color="#333",

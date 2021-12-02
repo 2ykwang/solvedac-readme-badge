@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <title>solvedac readme badge generator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      href="{{url_for('static',filename='/css/highlight/github-dark-dimmed.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='/css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css"
+    />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      pre,
+      code {
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .hljs {
+        display: inline-block;
+        word-break: break-all;
+        padding: 0.5em;
+        padding-right: 100%;
+        -webkit-text-size-adjust: none;
+      }
+    </style>
+    <link href="common.css" rel="stylesheet" />
+  </head>
+  <body class="bg-light">
+    <div class="container">
+      <main>
+        <div class="py-5 text-center">
+          <h2>뱃지 생성기</h2>
+          <p class="lead">아래 빈칸에 정보를 입력해주시면 뱃지가 생성됩니다.</p>
+        </div>
+
+        <div class="row g-5">
+          <div class="col-md-7 col-lg-7 order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <span class="text-primary">미리 보기</span>
+              <button
+                id="copyButton"
+                onclick="copyCode()"
+                type="button"
+                class="btn btn-light"
+              >
+                코드 복사하기
+              </button>
+            </h4>
+
+            <div class="card p-1" style="background-color: #22272e">
+              <img id="preview-img" style="object-fit: scale-down" />
+              <pre><code  id="markdown" class="language-markdown">![fewa](http://127.0.0.1:5000/api/v1/badge?user=fewafewasize=small&compact=1&use_back_color=1&use_border=0&use_shadow=0)</code></pre>
+            </div>
+          </div>
+
+          <div class="col-md-5 col-lg-5">
+            <h4 class="mb-3">설정</h4>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="username" class="form-label">solved.ac 계정</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text">@</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="user"
+                    placeholder="Username"
+                    required
+                  />
+                  <div class="invalid-feedback">계정을 입력해주세요.</div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <label for="link" class="form-label">링크</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text">></span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="link"
+                    placeholder="URL"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="theme" class="form-label">색 테마</label>
+                <select class="form-select" id="theme" required>
+                  {% for theme in themes %}
+                  <option value="{{theme}}">{{theme}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="size" class="form-label">크기</label>
+                <select class="form-select" id="size" required>
+                  {% for size in sizes %}
+                  <option value="{{size}}">{{size}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <hr class="my-4" />
+            <div class="row g-3">
+              <h5 class="mb-3">색상 사용자 정의</h5>
+
+              <div class="col-md-6">
+                <label for="address" class="form-label">배경 색</label>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="use_custom_back_color"
+                />
+
+                <input
+                  type="color"
+                  class="form-control"
+                  id="back_color"
+                  value="#FFFFFF"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="address" class="form-label">메인 색</label>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="use_custom_common_color"
+                />
+
+                <input
+                  type="color"
+                  class="form-control"
+                  id="common_color"
+                  value="#333333"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="address" class="form-label">보조 색</label>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="use_custom_sub_color"
+                />
+                <input
+                  type="color"
+                  class="form-control"
+                  id="sub_color"
+                  value="#0099EF"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label for="address" class="form-label">테두리 색</label>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="use_custom_border_color"
+                />
+                <input
+                  type="color"
+                  class="form-control"
+                  id="border_color"
+                  value="#EEEEEE"
+                  required
+                />
+              </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <h5 class="mb-3">추가 설정</h5>
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="compact"
+                checked
+              />
+              <label class="form-check-label" for="compact"
+                >작은 사이즈의 뱃지 사용하기</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="use_back_color"
+                checked
+              />
+              <label class="form-check-label" for="use_back_color"
+                >배경색 적용하기</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="use_border"
+                checked
+              />
+              <label class="form-check-label" for="use_border"
+                >뱃지 테두리 적용하기</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="use_shadow" />
+              <label class="form-check-label" for="use_shadow"
+                >아이콘 그림자 효과 적용하기</label
+              >
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017–2021 Company Name</p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#">Privacy</a></li>
+          <li class="list-inline-item"><a href="#">Terms</a></li>
+          <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <script src="{{url_for('static',filename='/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static',filename='/js/highlight/highlight.min.js')}}"></script>
+    <script src="{{url_for('static',filename='/js/highlight/markdown.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="{{url_for('static',filename='/js/common.js')}}"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </body>
+</html>
