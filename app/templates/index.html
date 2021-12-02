@@ -6,6 +6,12 @@
     <meta name="description" content="" />
     <title>solvedac readme badge generator</title>
 
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
     <!-- Bootstrap core CSS -->
     <link
       href="{{url_for('static',filename='/css/highlight/github-dark-dimmed.min.css')}}"
@@ -13,6 +19,10 @@
     />
     <link
       href="{{url_for('static',filename='/css/bootstrap.min.css')}}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{url_for('static',filename='/css/common.css')}}"
       rel="stylesheet"
     />
     <link
@@ -47,10 +57,9 @@
         -webkit-text-size-adjust: none;
       }
     </style>
-    <link href="common.css" rel="stylesheet" />
   </head>
-  <body class="bg-light">
-    <div class="container">
+  <body class="d-flex flex-column h-100 vsc-initialized">
+    <div class="container mb-5">
       <main>
         <div class="py-5 text-center">
           <h2>뱃지 생성기</h2>
@@ -59,21 +68,39 @@
 
         <div class="row g-5">
           <div class="col-md-7 col-lg-7 order-md-last">
-            <h4 class="d-flex justify-content-between align-items-center mb-3">
-              <span class="text-primary">미리 보기</span>
-              <button
-                id="copyButton"
-                onclick="copyCode()"
-                type="button"
-                class="btn btn-light"
-              >
-                코드 복사하기
-              </button>
-            </h4>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="text-primary"><strong>미리 보기</strong></h4>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-toggle="button"
+                  autocomplete="off"
+                  
+                  onclick="document.getElementById('preview-card').style.backgroundColor= this.getAttribute('aria-pressed')==='true'?'#22272e':'#FFFFFF';"
+                  .getAttribute("original-title");
+                > 
+                  어둡게보기
+                </button>
 
-            <div class="card p-1" style="background-color: #22272e">
+                <button
+                  id="copyButton"
+                  onclick="copyCode()"
+                  type="button"
+                  class="btn btn-main"
+                >
+                  코드 복사하기
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="card p-1"
+              id="preview-card"
+              style="background-color: #ffffff"
+            >
               <img id="preview-img" style="object-fit: scale-down" />
-              <pre><code  id="markdown" class="language-markdown">![fewa](http://127.0.0.1:5000/api/v1/badge?user=fewafewasize=small&compact=1&use_back_color=1&use_border=0&use_shadow=0)</code></pre>
+              <pre><code id="markdown" class="language-markdown"></code></pre>
             </div>
           </div>
 
@@ -88,7 +115,7 @@
                     type="text"
                     class="form-control"
                     id="user"
-                    placeholder="Username"
+                    placeholder="아이디"
                     required
                   />
                   <div class="invalid-feedback">계정을 입력해주세요.</div>
@@ -103,7 +130,7 @@
                     type="text"
                     class="form-control"
                     id="link"
-                    placeholder="URL"
+                    placeholder="URL 아무거나"
                     required
                   />
                 </div>
@@ -247,17 +274,25 @@
           </div>
         </div>
       </main>
-
-      <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017–2021 Company Name</p>
-        <ul class="list-inline">
-          <li class="list-inline-item"><a href="#">Privacy</a></li>
-          <li class="list-inline-item"><a href="#">Terms</a></li>
-          <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
-      </footer>
     </div>
 
+    <footer class="text-center footer mt-auto border-top">
+      <div class="container pt-4 footers">
+        <section class="mb-4 footers">
+          <span class="text-muted">2ykwang</span>
+
+          <!-- Github -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="https://github.com/2ykwang/solvedac-readme-badge"
+            role="button"
+            target="_blank"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-github"></i
+          ></a>
+        </section>
+      </div>
+    </footer>
     <script src="{{url_for('static',filename='/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{url_for('static',filename='/js/highlight/highlight.min.js')}}"></script>
     <script src="{{url_for('static',filename='/js/highlight/markdown.min.js')}}"></script>

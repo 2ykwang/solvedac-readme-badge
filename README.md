@@ -1,7 +1,8 @@
 <div align="center">
     <h2 align="center">solvedac-readme-badge</h2>  
    solved.ac 유저 정보를 이용해 README.md에 사용 가능한 뱃지 또는 카드를 만들어주는 프로젝트 입니다.
-   <br><br>
+   <br><br><br>
+  <a href="https://solvedac-readme-badge.herokuapp.com/" target="_blank">뱃지 생성하기</a><br><br>
 </div>
  
 ## TOC
