@@ -110,8 +110,8 @@ e.g) `compact=true` or `compact=false`
 
 | 값                | compact                                                                                                   |
 | :---------------- | :-------------------------------------------------------------------------------------------------------- |
-| `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&compact=1&use_shadow=1&) |
-| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&use_shadow=1&)           |
+| `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=leaisrevolution&compact=1&use_shadow=1&) |
+| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=jthis&use_shadow=1&)           |
 
 기본값은 `false` 입니다.
 
@@ -145,30 +145,7 @@ e.g:) `theme=onedark`, `theme=dark`, ...
       <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1&" alt="onedark"></td>
     </tr>
   </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td style="text-align:center"><code>default</code></td>
-      <td style="text-align:center"><code>swift</code></td>
-      <td style="text-align:center"><code>dark</code></td>
-    </tr>
-    <tr>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&use_shadow=1&" alt="default"></td>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&use_shadow=1&" alt="default"></td>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&use_shadow=1&" alt="default"></td>
-    </tr>
-    <tr>
-      <td style="text-align:center"><code>onedark</code></td>
-      <td style="text-align:center"><code>github-dark</code></td>
-      <td style="text-align:center"></td>
-    </tr>
-    <tr>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&use_shadow=1&" alt="onedark"></td>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&use_shadow=1&" alt="onedark"></td>
-    </tr>
-  </tbody>
-</table>
+</table> 
 
 <br>
 
@@ -180,9 +157,9 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 
 | 값               | 미리보기                                                                                                                           |
 | :--------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
-| `small`(default) | ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=small&use_shadow=1&)   |
-| `medium`         | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=medium&use_shadow=1&) |
-| `large`          | ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&size=large&use_shadow=1&)   |
+| `small`(default) | ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=kravi&theme=default&compact=1&size=small&use_shadow=1&)   |
+| `medium`         | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=0000000000&theme=default&compact=1&size=medium&use_shadow=1&) |
+| `large`          | ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=hun3555&theme=default&compact=1&size=large&use_shadow=1&)   |
 
 기본값은 `small` 입니다.
 
