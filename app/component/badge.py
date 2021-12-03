@@ -1,5 +1,5 @@
 # flake8: noqa
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from typing import Final
 
 from app.component.options import Options
@@ -13,31 +13,76 @@ from app.component.utils import (
 from app.solvedac import User
 
 
-class Badge:
+def preset_render(func):
+    def wrapper(self, *args):
+        if self.theme is None:
+            self.theme = make_theme(Options())
+
+        if self.user is None:
+            return self.error_render("ERROR", self.USER_NOT_FOUND)
+
+        self._set_size()
+        return func(self, *args)
+
+    return wrapper
+
+
+class Badge(ABC):
     USER_NOT_FOUND: Final = "사용자를 불러오지 못했습니다."
 
     def __init__(self):
-        """ """
+        # public
         self.width = 180
         self.height = 180
-        self.styles = ""
-        self._styles = ""
         self.user: User = None
         self.theme: Theme = None
         self.size = Options.DEFAULT_SIZE
+        self.sizes = {}
+
+        # protected
+        self._styles = ""
 
     @abstractmethod
     def _set_size(self) -> None:
         pass
 
-    @abstractmethod
-    def error_render(self, message: str) -> str:
-        pass
+    def error_render(self, title: str, message: str) -> str:
+        error_text = f""" 
+        <svg width="550" height="150" xmlns="http://www.w3.org/2000/svg">       
+        <style> 
+          
+          #error_title {{  font-size: 1.75em; font-weight: 600; letter-spacing: 0.15em; }}
+          #error_message {{ font-size: 1.2em; font-weight: 600; }}
+          .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 100%; height: 100%; white-space: nowrap; }}
+          .common_color{{ fill: #333; color: #333; }}
+          .sub_color{{ fill: #0099EF; color: #0099EF;}}
+          .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}} 
+        </style>
+          <rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"#fff\" stroke="#333333" stroke-opacity="1" stroke-width="0.5"/>
+          <g> 
+            <title>badge compact</title>
+            <svg y="15%">
+              <title>Error title</title>
+              <foreignObject width="100%" height="100%">
+                <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="error_title" class="text description common_color">
+                  {title}
+                </xhtml:span>
+              </foreignObject>
+            </svg>
+            <svg y="48%" >
+              <title>Error message</title>
+              <foreignObject width="100%" height="100%">
+                <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "error_message" class="text description sub_color">
+                  {message}
+                </xhtml:span>
+              </foreignObject>
+            </svg>
+          </g>
+        </svg> 
+        """
+        return error_text
 
-    def _render(self, body: str) -> str:
-
-        if self.theme is None:
-            self.theme = make_theme(Options())
+    def render(self, body: str) -> str:
 
         border = (
             f'stroke="{self.theme.border_color}" stroke-opacity="1" stroke-width="0.5"'
@@ -50,32 +95,19 @@ class Badge:
 
         back_ground = f"<rect x=\"0\" y=\"0\" width=\"99%\" height=\"99%\" rx=\"2.5\" ry=\"2.5\" fill=\"{self.theme.back_color}\" {border if self.theme.use_border else ''}/> "
         return f"""
-        <svg
-            width="{self.width}"
-            height="{self.height}"
-            xmlns="http://www.w3.org/2000/svg"> 
-            <style>
+          <svg width="{self.width}" height="{self.height}" xmlns="http://www.w3.org/2000/svg">       
+          <style>
             #tier_badge {{ {drop_shadow} }}
             .common_color{{ fill: {self.theme.common_color}; color: {self.theme.common_color}; }}
             .sub_color{{ fill: {self.theme.sub_color}; color: {self.theme.sub_color};}}
             .text{{ font-family: -apple-system,BlinkMacSystemFont,'Segoe UI', Ubuntu, Sans-Serif;}}
-            {self.styles}
             {self._styles}
-            </style>
+          </style>
             {back_ground if self.theme.use_back_color else ""}
             <g>
-                {body}
+              {body}
             </g>
-        </svg>"""
-
-    def render(self, body: str) -> str:
-
-        self._set_size()
-
-        if self.user is None:
-            return self.error_render(self.USER_NOT_FOUND)
-
-        return self._render(body)
+          </svg>"""
 
 
 class DefaultBadge(Badge):
@@ -98,34 +130,10 @@ class DefaultBadge(Badge):
             self.height = size["height"]
             self.font_size = size["font_size"]
 
-    def error_render(self, message: str) -> str:
-        self._set_size()
-
-        self._styles = f"""
-        #error_message {{ font-size: {self.font_size}em; font-weight: 600; }}
-        .description {{ text-align: center; display: inline-block; width: 100%; height: 100%; white-space:normal; }}
-        """
-        error_text = f"""
-        <title>badge {self.size}</title>
-        <svg y="50%">
-          <title>Error message</title>
-            <foreignObject width="100%" height="100%">
-            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "error_message" class="text description sub_color">
-              {message}
-            </xhtml:span>
-          </foreignObject>
-        </svg>
-            """
-        return super(DefaultBadge, self)._render(error_text)
-
+    @preset_render
     def render(self) -> str:
-        self._set_size()
-
-        if self.user is None:
-            return self.error_render(self.USER_NOT_FOUND)
 
         tier_icon = get_tier_icon(self.user.tier)
-
         """
             <!-- small 180, 180 1-->
             <!-- medium 270, 270 1.5-->
@@ -179,10 +187,6 @@ class CompactBadge(Badge):
                 "small_font_size": 1.915,
             },
         }
-        self.width = self.__sizes[Options.DEFAULT_SIZE]["width"]
-        self.height = self.__sizes[Options.DEFAULT_SIZE]["height"]
-        self.big_font_size = self.__sizes[Options.DEFAULT_SIZE]["big_font_size"]
-        self.small_font_size = self.__sizes[Options.DEFAULT_SIZE]["small_font_size"]
 
     def _set_size(self):
         if self.size in self.__sizes:
@@ -192,40 +196,8 @@ class CompactBadge(Badge):
             self.big_font_size = size["big_font_size"]
             self.small_font_size = size["small_font_size"]
 
-    def error_render(self, message: str) -> str:
-        self._set_size()
-
-        self._styles = f"""
-        #error_title {{  font-size: {self.big_font_size}em; font-weight: 600; letter-spacing: 0.15em; }}
-        #error_message {{ font-size: {self.small_font_size}em; font-weight: 600; }}
-        .description {{ overflow: hidden; text-overflow: ellipsis; text-align: center; display: inline-block; width: 100%; height: 100%; white-space: nowrap; }}
-        """
-        error_text = f"""
-        <title>badge compact {self.size}</title>
-        <svg y="15%">
-          <title>Error title</title>
-          <foreignObject width="100%" height="100%">
-            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id="error_title" class="text description common_color">
-              ERROR
-            </xhtml:span>
-          </foreignObject>
-        </svg>
-        <svg y="48%" >
-          <title>Error message</title>
-          <foreignObject width="100%" height="100%">
-            <xhtml:span xmlns:xhtml="http://www.w3.org/1999/xhtml" id = "error_message" class="text description sub_color">
-              {message}
-            </xhtml:span>
-          </foreignObject>
-        </svg>
-        """
-        return super(CompactBadge, self)._render(error_text)
-
+    @preset_render
     def render(self) -> str:
-        self._set_size()
-
-        if self.user is None:
-            return self.error_render(self.USER_NOT_FOUND)
 
         tier_icon = get_tier_icon(self.user.tier)
         tier_text = get_tier_text(self.user.tier)

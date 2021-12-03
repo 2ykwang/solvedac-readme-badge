@@ -1,60 +1,53 @@
-import pytest
 from app.component.badge import Badge, CompactBadge, DefaultBadge
+from app.component.utils import get_tier_icon, get_tier_text
 from app.solvedac.user import User
+from bs4 import BeautifulSoup
 
 
-def test_func():
-    a = 4
-    assert a == 5
+def element_content(element):
+    if element:
+        return "".join([str(x) for x in element.contents]).strip()
 
 
-class TestBadge:
-    @pytest.fixture
-    def setUp(self) -> None:
+def test_render_no_user_error():
+    for target in [CompactBadge, DefaultBadge]:
+        badge = target()
 
-        test_user = User(
-            username="2ykwang",
-            bio="biography",
-            tier=8,
-            user_class=1,
-            user_class_decoration="",
-            rating=400,
-            exp=0,
-            rank=19250,
-        )
-
-        self.test_user = test_user
-
-    def test_render_error(self):
-
-        compact_badge = CompactBadge()
-
-        ACTUAL = compact_badge.render()
+        bs = BeautifulSoup(badge.render())
+        ACTUAL = bs.find(id="error_message").text.strip()
         EXPECTED = Badge.USER_NOT_FOUND
 
         assert EXPECTED in ACTUAL
 
-        default_badge = DefaultBadge()
 
-        ACTUAL = default_badge.render()
-        EXPECTED = Badge.USER_NOT_FOUND
+def test_badge_render():
+    user = User(
+        username="2ykwang",
+        bio="biography",
+        tier=8,
+        user_class=1,
+        user_class_decoration="",
+        rating=400,
+        exp=0,
+        rank=19250,
+    )
 
-        assert EXPECTED in ACTUAL
+    for target in [CompactBadge, DefaultBadge]:
+        badge = target()
+        badge.user = user
 
-    def test_render(self):
+        tier_icon = get_tier_icon(user.tier)
+        tier_text = get_tier_text(user.tier)
 
-        compact_badge = CompactBadge()
-        compact_badge.user = self.user
+        bs = BeautifulSoup(badge.render())
 
-        ACTUAL = compact_badge.render()
-        EXPECTED = self.user.username
+        render_tier_icon = element_content(bs.find("tier_badge"))
+        render_tier_text = element_content(bs.find("tier_text"))
+        render_username = bs.find(id="username").text.strip()
 
-        assert EXPECTED in ACTUAL
+        if render_tier_icon:
+            assert render_tier_icon == tier_icon
+        if render_tier_text:
+            assert render_tier_text == tier_text
 
-        default_badge = CompactBadge()
-        default_badge.user = self.user
-
-        ACTUAL = default_badge.render()
-        EXPECTED = self.user.username
-
-        assert EXPECTED in ACTUAL
+        assert render_username == user.username

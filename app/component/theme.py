@@ -1,7 +1,5 @@
 from typing import Final
 
-from app.component.options import Options
-
 
 class Theme:
     """
