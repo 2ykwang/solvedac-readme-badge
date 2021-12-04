@@ -119,9 +119,6 @@ class DefaultBadge(Badge):
             Options.MEDIUM_SIZE: {"width": 270, "height": 270, "font_size": 1.5},
             Options.LARGE_SIZE: {"width": 410, "height": 410, "font_size": 2.25},
         }
-        self.width = self.__sizes[Options.DEFAULT_SIZE]["width"]
-        self.height = self.__sizes[Options.DEFAULT_SIZE]["height"]
-        self.font_size = self.__sizes[Options.DEFAULT_SIZE]["font_size"]
 
     def _set_size(self):
         if self.size in self.__sizes:
