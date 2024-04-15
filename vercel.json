@@ -1,0 +1,20 @@
+{
+
+    "version": 2,
+    "env": {
+        "API_HOST": "solved.ac",
+        "CACHE_DIR": "/tmp/_cache/"
+    },
+    "builds": [
+        {
+            "src": "./index.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/"
+        }
+    ]
+}

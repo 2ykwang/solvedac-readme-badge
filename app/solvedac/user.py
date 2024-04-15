@@ -37,7 +37,6 @@ def get_user_from_dict(json_data: Dict[str, any]) -> User:
     result.user_class = json_data["class"]
     result.user_class_decoration = json_data["classDecoration"]
     result.rating = json_data["rating"]
-    result.exp = json_data["exp"]
     result.rank = json_data["rank"]
 
     result.json_raw_data = json_data

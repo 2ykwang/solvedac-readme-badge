@@ -1,1 +1,0 @@
-web: gunicorn -c ./gunicorn.config.py

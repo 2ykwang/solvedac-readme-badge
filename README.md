@@ -2,7 +2,7 @@
     <h2 align="center">solvedac-readme-badge</h2>  
    solved.ac 유저 정보를 이용해 README.md에 사용 가능한 뱃지 또는 카드를 만들어주는 프로젝트 입니다.
    <br><br><br>
-  <a href="https://solvedac-readme-badge.herokuapp.com/" target="_blank">뱃지 생성하기</a><br><br>
+  <a href="https://solvedac-readme-badge.vercel.app/" target="_blank">뱃지 생성하기</a><br><br>
 </div>
  
 ## TOC
@@ -25,13 +25,13 @@
 - Badge
 
 ```md
-[![solvedac badge](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=baekjoon_id_here)](https://github.com/2ykwang/solvedac-readme-badge)
+[![solvedac badge](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=baekjoon_id_here)](https://github.com/2ykwang/solvedac-readme-badge)
 ```
 
 - Badge (compact)
 
 ```md
-[![solvedac badge](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=baekjoon_id_here&compact=1)](https://github.com/2ykwang/solvedac-readme-badge)
+[![solvedac badge](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=baekjoon_id_here&compact=1)](https://github.com/2ykwang/solvedac-readme-badge)
 ```
 
 <br>
@@ -61,9 +61,9 @@ $ flask run
       <td align="center">platinum</td>
     </tr>
     <tr>
-      <td align="center"><img alt="ruby" src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=jthis&use_back_color=0&compact=1&theme=onedark&common_color=f59&sub_color=3bb" /></td>
-      <td align="center"><img alt="diamond" src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=hun3555&common_color=4cf&sub_color=55f&use_back_color=0&compact=1" /></td>
-      <td align="center"><img alt="platinum" src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=kravi&use_back_color=0&common_color=5ec&compact=1" /></td>
+      <td align="center"><img alt="ruby" src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=jthis&use_back_color=0&compact=1&theme=onedark&common_color=f59&sub_color=3bb" /></td>
+      <td align="center"><img alt="diamond" src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=hun3555&common_color=4cf&sub_color=55f&use_back_color=0&compact=1" /></td>
+      <td align="center"><img alt="platinum" src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=kravi&use_back_color=0&common_color=5ec&compact=1" /></td>
     </tr>
     <tr>
       <td align="center">gold</td>
@@ -71,9 +71,9 @@ $ flask run
       <td align="center">bronze</td>
     </tr>
     <tr>
-      <td align="center"><img alt="hun3555" src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=0000000000&common_color=fc2&sub_color=a7f&use_back_color=0&compact=1" /></td>
-      <td align="center"><img alt="2ykwang" src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&use_back_color=0&common_color=bbb&sub_color=777&compact=1" /></td>
-      <td align="center"><img alt="leaisrevolution" src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=leaisrevolution&use_back_color=0&compact=1&common_color=b55&sub_color=caa" /></td>
+      <td align="center"><img alt="hun3555" src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=0000000000&common_color=fc2&sub_color=a7f&use_back_color=0&compact=1" /></td>
+      <td align="center"><img alt="2ykwang" src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=2ykwang&use_back_color=0&common_color=bbb&sub_color=777&compact=1" /></td>
+      <td align="center"><img alt="leaisrevolution" src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=leaisrevolution&use_back_color=0&compact=1&common_color=b55&sub_color=caa" /></td>
     </tr>
   </tbody>
 </table>
@@ -110,8 +110,8 @@ e.g) `compact=true` or `compact=false`
 
 | 값                | compact                                                                                                   |
 | :---------------- | :-------------------------------------------------------------------------------------------------------- |
-| `True`            | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=leaisrevolution&compact=1&use_shadow=1&) |
-| `False` (default) | ![preview](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=jthis&use_shadow=1&compact=0)           |
+| `True`            | ![preview](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=leaisrevolution&compact=1&use_shadow=1&) |
+| `False` (default) | ![preview](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=jthis&use_shadow=1&compact=0)           |
 
 기본값은 `false` 입니다.
 
@@ -131,9 +131,9 @@ e.g:) `theme=onedark`, `theme=dark`, ...
       <td style="text-align:center"><code>dark</code></td>
     </tr>
     <tr>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=default&compact=1&use_shadow=1&" alt="default"></td>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1&" alt="default"></td>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1&" alt="default"></td>
+      <td style="text-align:center"><img src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=2ykwang&theme=default&compact=1&use_shadow=1&" alt="default"></td>
+      <td style="text-align:center"><img src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=2ykwang&theme=swift&compact=1&use_shadow=1&" alt="default"></td>
+      <td style="text-align:center"><img src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=2ykwang&theme=dark&compact=1&use_shadow=1&" alt="default"></td>
     </tr>
     <tr>
       <td style="text-align:center"><code>onedark</code></td>
@@ -141,8 +141,8 @@ e.g:) `theme=onedark`, `theme=dark`, ...
       <td style="text-align:center"></td>
     </tr>
     <tr>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1&" alt="onedark"></td>
-      <td style="text-align:center"><img src="https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1&" alt="onedark"></td>
+      <td style="text-align:center"><img src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=2ykwang&theme=onedark&compact=1&use_shadow=1&" alt="onedark"></td>
+      <td style="text-align:center"><img src="https://solvedac-readme-badge.vercel.app/api/v1/badge?user=2ykwang&theme=github-dark&compact=1&use_shadow=1&" alt="onedark"></td>
     </tr>
   </tbody>
 </table> 
@@ -157,9 +157,9 @@ e.g:) `theme=onedark`, `theme=dark`, ...
 
 | 값               | 미리보기                                                                                                                           |
 | :--------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
-| `small`(default) | ![small](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=kravi&theme=default&compact=1&size=small&use_shadow=1&)   |
-| `medium`         | ![medium](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=0000000000&theme=default&compact=1&size=medium&use_shadow=1&) |
-| `large`          | ![large](https://solvedac-readme-badge.herokuapp.com/api/v1/badge?user=hun3555&theme=default&compact=1&size=large&use_shadow=1&)   |
+| `small`(default) | ![small](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=kravi&theme=default&compact=1&size=small&use_shadow=1&)   |
+| `medium`         | ![medium](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=0000000000&theme=default&compact=1&size=medium&use_shadow=1&) |
+| `large`          | ![large](https://solvedac-readme-badge.vercel.app/api/v1/badge?user=hun3555&theme=default&compact=1&size=large&use_shadow=1&)   |
 
 기본값은 `small` 입니다.
 
