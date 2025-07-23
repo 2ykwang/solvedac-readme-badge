@@ -5,7 +5,7 @@ description = "solvedac readme badge generator"
 authors = ["2ykwang"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 fastapi = "^0.116.1"
 uvicorn = "^0.35.0"
 gunicorn = "^21.2.0"
