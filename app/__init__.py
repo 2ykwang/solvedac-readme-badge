@@ -1,43 +1,42 @@
-import os
+import logging
 import time
 
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from cachetools import TTLCache
+
 from config import Config
-from flask import Flask, current_app, g
-from flask_caching import Cache
 
-cache = Cache()
+cache = TTLCache(maxsize=1024, ttl=Config.CACHE_DEFAULT_TIMEOUT)
+templates = Jinja2Templates(directory="app/templates")
 
 
-def create_app():
-    app = Flask(__name__)
-
+def create_app() -> FastAPI:
     config = Config()
-    app.config.from_object(config)
+    app = FastAPI()
 
-    config.init_app(app)
-    cache.init_app(app)
+    app.state.config = config
+    app.state.cache = cache
+    app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
     from .api import routes as api
-
-    app.register_blueprint(api.bp, url_prefix="/api/v1/")
-
     from .generate import routes as generate
 
-    app.register_blueprint(generate.bp, url_prefix="/")
+    app.include_router(api.router, prefix="/api/v1")
+    app.include_router(generate.router)
 
-    app.before_request(before_request)
-    app.teardown_request(teardown_request)
+    Config.init_app(logging.getLogger("uvicorn.error"))
+
+    @app.middleware("http")
+    async def log_slow_requests(request: Request, call_next):
+        start = time.time()
+        response = await call_next(request)
+        duration = time.time() - start
+        if duration > 0.40001:
+            logging.getLogger("uvicorn.error").warning(
+                f"It took `{duration :.5f}` seconds to respond."
+            )
+        return response
 
     return app
-
-
-# 요청 처리 전
-def before_request() -> None:
-    g.request_start_time = time.time()
-
-
-# 렌더링 된 후
-def teardown_request(exception) -> None:
-    request_time = time.time() - g.request_start_time
-    if request_time > 0.40001:
-        current_app.logger.warning(f"It took `{request_time :.5f}` seconds to respond.")

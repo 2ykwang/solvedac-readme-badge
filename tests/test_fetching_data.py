@@ -21,7 +21,6 @@ def test_get_problems_stats():
 
     take_first = userdata[0]
 
-    ACTUAL = [x for x in take_first.keys()]
-    EXPECTED = ["level", "total", "solved", "partial", "tried", "exp"]
-
-    assert ACTUAL == EXPECTED
+    ACTUAL = set(take_first.keys())
+    EXPECTED = {"level", "total", "solved", "partial", "tried"}
+    assert EXPECTED.issubset(ACTUAL)

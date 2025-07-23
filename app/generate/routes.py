@@ -1,7 +1,8 @@
-from flask import Blueprint
+from fastapi import APIRouter
+from fastapi.responses import HTMLResponse
 
 from . import views
 
-bp = Blueprint("generate", __name__)
+router = APIRouter()
 
-bp.add_url_rule(rule="/", view_func=views.index, methods=["GET"])
+router.add_api_route("/", views.index, methods=["GET"], response_class=HTMLResponse)

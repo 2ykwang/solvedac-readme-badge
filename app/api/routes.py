@@ -1,13 +1,10 @@
-from flask import Blueprint
+from fastapi import APIRouter
+from fastapi.responses import Response
 
 from . import views
 
-bp = Blueprint("api", __name__)
+router = APIRouter()
 
-bp.add_url_rule(
-    rule="/badge", view_func=views.generate_badge_by_username, methods=["GET"]
-)
-# 구버전
-bp.add_url_rule(
-    rule="/generate/api", view_func=views.generate_badge_by_username, methods=["GET"]
-)
+router.add_api_route("/badge", views.generate_badge_by_username, methods=["GET"], response_class=Response)
+# legacy url
+router.add_api_route("/generate/api", views.generate_badge_by_username, methods=["GET"], response_class=Response)
