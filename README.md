@@ -40,13 +40,13 @@
 
 ```sh
 $ git clone https://github.com/2ykwang/solvedac-readme-badge .
-$ poetry install
+$ make install
 
 # make .env
 $ touch .env
 $ echo API_HOST="solved.ac" >> .env
 
-$ flask run
+$ make dev
 ```
 
 <br>

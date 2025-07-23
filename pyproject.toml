@@ -1,25 +1,24 @@
-[tool.poetry]
+[project]
 name = "solvedac-readme-badge"
 version = "0.1.0"
 description = "solvedac readme badge generator"
-authors = ["2ykwang"]
+authors = [{name = "2ykwang"}]
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.116.1",
+    "uvicorn>=0.35.0",
+    "gunicorn>=21.2.0",
+    "python-dotenv>=0.19.2",
+    "requests>=2.26.0",
+    "cachetools>=6.1.0",
+    "httpx>=0.27.0",
+    "jinja2>=3.1.6",
+]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-fastapi = "^0.116.1"
-uvicorn = "^0.35.0"
-gunicorn = "^21.2.0"
-python-dotenv = "^0.19.2"
-requests = "^2.26.0"
-cachetools = "^6.1.0"
-httpx = "^0.27.0"
-
-[tool.poetry.dev-dependencies]
-black = "^21.11b1"
-flake8 = "^4.0.1"
-isort = "^5.10.1"
-pytest = "^6.2.5"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[project.optional-dependencies]
+dev = [
+    "black>=21.11b1",
+    "flake8>=4.0.1",
+    "isort>=5.10.1",
+    "pytest>=6.2.5",
+]
