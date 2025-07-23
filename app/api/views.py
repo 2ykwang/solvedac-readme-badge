@@ -1,62 +1,54 @@
-import os
-
+import logging
 from typing import Union
+
+from fastapi import Request, Response
 
 from app import cache
 from app.component import Options, make_badge
 from app.solvedac import SolvedacFetcher, User, get_user_from_dict
-from flask import Response, current_app, g, make_response, request
 
 
-def generate_badge_by_username():
-    username = request.args.get("user")
+def generate_badge_by_username(request: Request) -> Response:
+    username = request.query_params.get("user")
 
     options = Options(
-        theme=request.args.get("theme", Options.DEFAULT_THEME),
-        size=request.args.get("size", Options.DEFAULT_SIZE),
-        common_color=request.args.get("common_color", ""),
-        sub_color=request.args.get("sub_color", ""),
-        back_color=request.args.get("back_color", ""),
-        border_color=request.args.get("border_color", ""),
-        use_shadow=__bool_parse(request.args.get("use_shadow", "true")),
-        is_compact=__bool_parse(request.args.get("compact", "true")),
-        use_back_color=__bool_parse(request.args.get("use_back_color", "true")),
-        use_border=__bool_parse(request.args.get("use_border", "true")),
+        theme=request.query_params.get("theme", Options.DEFAULT_THEME),
+        size=request.query_params.get("size", Options.DEFAULT_SIZE),
+        common_color=request.query_params.get("common_color", ""),
+        sub_color=request.query_params.get("sub_color", ""),
+        back_color=request.query_params.get("back_color", ""),
+        border_color=request.query_params.get("border_color", ""),
+        use_shadow=_bool_parse(request.query_params.get("use_shadow", "true")),
+        is_compact=_bool_parse(request.query_params.get("compact", "true")),
+        use_back_color=_bool_parse(request.query_params.get("use_back_color", "true")),
+        use_border=_bool_parse(request.query_params.get("use_border", "true")),
     )
     comp = make_badge(None, options)
 
-    cache_max_age = current_app.config["CACHE_CONTROL"]
-    timeout = current_app.config["TIMEOUT"]
+    config = request.app.state.config
+    cache_max_age = config.CACHE_CONTROL
+    timeout = config.TIMEOUT
 
-    # user 생성
     try:
-        if cache.get(username) is None:
-            cache.set(username, __get_user(username, timeout))
-            current_app.logger.info(f"데이터 불러옴: {username}")
-
-        cached_user = cache.get(username)
-        comp.user = cached_user
+        if username:
+            cached_user = cache.get(username)
+            if cached_user is None:
+                cached_user = _get_user(username, timeout, config.API_HOST)
+                cache[username] = cached_user
+                logging.getLogger("uvicorn.error").info(f"데이터 불러옴: {username}")
+            comp.user = cached_user
     except Exception as e:
-        current_app.logger.error(f"generate_badge_by_username - {e}")
+        logging.getLogger("uvicorn.error").error(f"generate_badge_by_username - {e}")
 
-    return __make_svg_response(comp.render(), cache_max_age)
+    headers = {"Cache-Control": f"public, max-age={cache_max_age}"}
+    return Response(content=comp.render(), media_type="image/svg+xml", headers=headers)
 
 
-def __get_user(username: str, timeout: int = 30) -> User:
-    host = current_app.config["API_HOST"]
+def _get_user(username: str, timeout: int, host: str) -> User:
     fetcher = SolvedacFetcher(host, timeout)
     json_data = fetcher.get_user_info(username)
-    user = get_user_from_dict(json_data)
-    return user
+    return get_user_from_dict(json_data)
 
 
-def __make_svg_response(svg: str, max_age: int = 3600) -> Response:
-    response = make_response(svg)
-    response.mimetype = "image/svg+xml"
-    response.cache_control.public = True
-    response.cache_control.max_age = max_age
-    return response
-
-
-def __bool_parse(text: Union[str, bool]) -> bool:
-    return text if type(text) == bool else text.lower() in ["yes", "true", "1", "t"]
+def _bool_parse(text: Union[str, bool]) -> bool:
+    return text if isinstance(text, bool) else str(text).lower() in ["yes", "true", "1", "t"]
