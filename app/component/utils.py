@@ -95,19 +95,33 @@ def make_theme(options: Options) -> Theme:
 
 
 def make_badge(user: User = None, options: Options = None):
-
+    """레거시 호환성을 위한 함수입니다. 새로운 코드에서는 BadgeFactory를 사용하세요."""
     from app.component.badge import CompactBadge, DefaultBadge
+    from app.factories.size_factory import SizeFactory
 
     if options is None:
         options = Options()
 
-    badge = CompactBadge() if options.is_compact else DefaultBadge()
-
-    theme = make_theme(options)
-    badge.theme = theme
-    badge.size = options.size
-    badge.user = user
-
+    # 새로운 팩토리 패턴 사용
+    from app.schemas import BadgeQueryParams, SizeEnum, ThemeEnum
+    
+    params = BadgeQueryParams(
+        user=None,  # user는 별도로 설정
+        theme=ThemeEnum(options.theme),
+        size=SizeEnum(options.size),
+        common_color=options.common_color or None,
+        sub_color=options.sub_color or None,
+        back_color=options.back_color or None,
+        border_color=options.border_color or None,
+        use_shadow=options.use_shadow,
+        compact=options.is_compact,
+        use_back_color=options.use_back_color,
+        use_border=options.use_border,
+    )
+    
+    from app.factories.badge_factory import BadgeFactory
+    badge = BadgeFactory.create_badge(user, params)
+    
     return badge
 
 
